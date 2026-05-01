@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>借金チェック｜自力で返せる？3分で状況を診断 | よりそいマネー</title>
+  <meta name="description" content="5つの質問に答えるだけ。借入総額・月収・返済状況から、自力返済・任意整理・個人再生など最適な選択肢の目安がわかります。">
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    :root {
+      --main: #234E52;
+      --accent: #38B2AC;
+      --accent2: #2C7A7B;
+      --bg: #F0FFF4;
+      --white: #FFFFFF;
+      --text: #2D3748;
+      --text-light: #718096;
+      --border: #E2E8F0;
+    }
+    body { font-family:'Hiragino Sans','Yu Gothic',sans-serif; background:var(--bg); color:var(--text); line-height:1.7; }
+
+    nav { background:var(--white); border-bottom:1px solid var(--border); padding:0 40px; height:64px; display:flex; align-items:center; justify-content:space-between; position:sticky; top:0; z-index:100; box-shadow:0 1px 4px rgba(0,0,0,0.06); }
+    .logo { font-size:20px; font-weight:700; color:var(--text); text-decoration:none; }
+    .logo span { color:var(--accent); }
+    .back-link { color:var(--accent); text-decoration:none; font-size:14px; }
+    .back-link:hover { text-decoration:underline; }
+
+    .hero { background:linear-gradient(135deg,#E6FFFA,#EBF8FF); padding:48px 40px 32px; text-align:center; border-bottom:1px solid var(--border); }
+    .hero-badge { display:inline-block; background:rgba(56,178,172,0.12); border:1px solid rgba(56,178,172,0.3); color:var(--accent); font-size:12px; font-weight:600; padding:4px 14px; border-radius:20px; margin-bottom:14px; }
+    .hero h1 { font-size:28px; font-weight:700; color:#1A202C; margin-bottom:10px; line-height:1.4; }
+    .hero p { color:var(--text-light); font-size:15px; max-width:560px; margin:0 auto; }
+    .hero-meta { display:flex; justify-content:center; gap:24px; margin-top:16px; flex-wrap:wrap; }
+    .hero-meta span { font-size:13px; color:var(--text-light); }
+    .hero-meta span b { color:var(--accent); }
+
+    .check-wrap { max-width:680px; margin:40px auto 80px; padding:0 24px; }
+
+    .progress-wrap { margin-bottom:32px; }
+    .progress-steps { display:flex; justify-content:space-between; position:relative; margin-bottom:10px; }
+    .progress-steps::before { content:''; position:absolute; top:14px; left:0; right:0; height:2px; background:var(--border); z-index:0; }
+    .progress-line { position:absolute; top:14px; left:0; height:2px; background:var(--accent); z-index:1; transition:width 0.4s ease; }
+    .step-dot { width:28px; height:28px; border-radius:50%; background:var(--border); display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; color:#A0AEC0; position:relative; z-index:2; transition:all 0.3s; }
+    .step-dot.active { background:var(--accent); color:#fff; box-shadow:0 0 0 4px rgba(56,178,172,0.2); }
+    .step-dot.done { background:#38A169; color:#fff; }
+    .progress-labels { display:flex; justify-content:space-between; }
+    .progress-labels span { font-size:11px; color:#A0AEC0; text-align:center; flex:1; transition:color 0.3s; }
+    .progress-labels span.active { color:var(--accent); font-weight:700; }
+    .progress-labels span.done { color:#38A169; }
+
+    .step-card { background:var(--white); border-radius:16px; padding:36px; box-shadow:0 2px 16px rgba(45,55,72,0.08); display:none; }
+    .step-card.active { display:block; animation:fadeIn 0.35s ease; }
+    @keyframes fadeIn { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+
+    .step-header { margin-bottom:28px; }
+    .step-num { font-size:11px; font-weight:700; color:var(--accent); letter-spacing:0.1em; text-transform:uppercase; margin-bottom:4px; }
+    .step-title { font-size:20px; font-weight:700; color:var(--text); margin-bottom:6px; }
+    .step-desc { font-size:13px; color:var(--text-light); }
+
+    .question { margin-bottom:28px; }
+    .question-label { font-size:15px; font-weight:700; color:#1A202C; margin-bottom:14px; display:flex; align-items:flex-start; gap:8px; }
+    .q-num { display:inline-flex; align-items:center; justify-content:center; min-width:24px; height:24px; background:rgba(56,178,172,0.12); color:var(--accent); border-radius:50%; font-size:12px; font-weight:700; flex-shrink:0; margin-top:1px; }
+
+    .radio-list { display:flex; flex-direction:column; gap:8px; }
+    .radio-item input[type=radio] { display:none; }
+    .radio-item label { display:flex; align-items:center; gap:14px; background:#F7FAFC; border:2px solid var(--border); border-radius:10px; padding:14px 16px; cursor:pointer; transition:all 0.2s; }
+    .radio-item label:hover { border-color:var(--accent); background:#E6FFFA; }
+    .radio-item input:checked + label { border-color:var(--accent); background:#E6FFFA; }
+    .radio-icon { font-size:22px; flex-shrink:0; width:32px; text-align:center; }
+    .radio-text { flex:1; }
+    .radio-main { font-size:14px; font-weight:600; color:var(--text); display:block; }
+    .radio-sub { font-size:12px; color:var(--text-light); }
+    .radio-item input:checked + label .radio-main { color:var(--accent2); }
+    .radio-check { width:20px; height:20px; border-radius:50%; border:2px solid var(--border); flex-shrink:0; transition:all 0.2s; display:flex; align-items:center; justify-content:center; }
+    .radio-item input:checked + label .radio-check { border-color:var(--accent); background:var(--accent); }
+    .radio-item input:checked + label .radio-check::after { content:''; width:8px; height:8px; border-radius:50%; background:#fff; }
+
+    .btn-row { display:flex; gap:12px; margin-top:32px; }
+    .btn-next { flex:1; background:var(--accent); color:#fff; border:none; border-radius:10px; padding:14px; font-size:16px; font-weight:700; cursor:pointer; font-family:inherit; transition:opacity 0.2s,transform 0.2s; }
+    .btn-next:hover:not(:disabled) { opacity:0.9; transform:translateY(-1px); }
+    .btn-next:disabled { background:#CBD5E0; cursor:not-allowed; }
+    .btn-back { background:#F7FAFC; color:var(--text-light); border:2px solid var(--border); border-radius:10px; padding:14px 20px; font-size:14px; font-weight:600; cursor:pointer; font-family:inherit; transition:all 0.2s; }
+    .btn-back:hover { border-color:#CBD5E0; color:#4A5568; }
+
+    /* 結果画面 */
+    #result { display:none; animation:fadeIn 0.4s ease; }
+
+    .result-level-card { border-radius:16px; padding:36px 28px; text-align:center; margin-bottom:20px; color:#fff; position:relative; overflow:hidden; }
+    .result-level-card::before { content:''; position:absolute; top:-40px; right:-40px; width:150px; height:150px; border-radius:50%; background:rgba(255,255,255,0.07); }
+    .result-level-label { font-size:13px; opacity:0.85; margin-bottom:6px; letter-spacing:0.05em; }
+    .result-level-name { font-size:38px; font-weight:700; line-height:1.2; margin-bottom:8px; }
+    .result-level-sub { font-size:15px; opacity:0.85; }
+
+    .result-section { background:var(--white); border-radius:14px; padding:24px; box-shadow:0 2px 12px rgba(45,55,72,0.06); margin-bottom:16px; }
+    .result-section-title { font-size:16px; font-weight:700; color:var(--main); margin-bottom:16px; display:flex; align-items:center; gap:8px; }
+
+    .result-desc-text { font-size:15px; line-height:2.0; color:var(--text); }
+
+    .option-list { display:flex; flex-direction:column; gap:10px; }
+    .option-item { display:flex; align-items:flex-start; gap:12px; padding:14px; border-radius:10px; }
+    .option-item.recommend { background:#E6FFFA; border:1px solid #81E6D9; }
+    .option-item.neutral { background:#F7FAFC; border:1px solid var(--border); }
+    .option-item.warn { background:#FFFBEB; border:1px solid #F6E05E; }
+    .option-badge { font-size:11px; font-weight:700; padding:2px 8px; border-radius:10px; white-space:nowrap; margin-top:2px; flex-shrink:0; }
+    .option-badge.rec { background:#38B2AC; color:#fff; }
+    .option-badge.neu { background:#A0AEC0; color:#fff; }
+    .option-badge.wrn { background:#D69E2E; color:#fff; }
+    .option-title { font-size:14px; font-weight:700; color:var(--text); margin-bottom:3px; }
+    .option-desc { font-size:12px; color:var(--text-light); line-height:1.6; }
+
+    .steps-list { display:flex; flex-direction:column; }
+    .step-item { display:flex; gap:16px; align-items:flex-start; padding:14px 0; border-bottom:1px solid #F0F4F8; }
+    .step-item:last-child { border-bottom:none; }
+    .step-circle { width:32px; height:32px; border-radius:50%; background:var(--accent); color:#fff; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:700; flex-shrink:0; }
+    .step-content-title { font-size:14px; font-weight:700; color:var(--text); margin-bottom:3px; }
+    .step-content-desc { font-size:12px; color:var(--text-light); line-height:1.6; }
+
+    .cta-section { background:linear-gradient(135deg,#234E52,#2C7A7B); border-radius:16px; padding:28px; text-align:center; margin-bottom:16px; }
+    .cta-section h3 { color:#fff; font-size:18px; font-weight:700; margin-bottom:8px; }
+    .cta-section p { color:rgba(255,255,255,0.8); font-size:13px; margin-bottom:20px; }
+    .cta-btns { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
+    .cta-btn-primary { display:inline-block; background:#fff; color:#234E52; padding:12px 28px; border-radius:8px; font-weight:700; font-size:15px; text-decoration:none; }
+    .cta-btn-secondary { display:inline-block; background:rgba(255,255,255,0.15); color:#fff; padding:12px 24px; border-radius:8px; font-weight:600; font-size:14px; text-decoration:none; border:1px solid rgba(255,255,255,0.3); }
+
+    .disclaimer { font-size:11px; color:#A0AEC0; line-height:1.8; background:#F7FAFC; border-radius:8px; padding:14px 16px; margin-top:16px; }
+    .retry-btn { display:block; width:100%; margin-top:12px; background:#F7FAFC; border:2px solid var(--border); color:var(--text-light); padding:12px; border-radius:10px; font-size:14px; font-weight:600; cursor:pointer; font-family:inherit; }
+    .retry-btn:hover { border-color:#CBD5E0; color:#4A5568; }
+
+    footer { background:var(--main); color:#A0AEC0; padding:32px 40px 24px; text-align:center; margin-top:40px; }
+    .footer-links { display:flex; gap:20px; justify-content:center; flex-wrap:wrap; margin-bottom:16px; }
+    .footer-links a { color:#A0AEC0; text-decoration:none; font-size:13px; }
+    .footer-copy { font-size:12px; color:rgba(160,174,192,0.7); }
+
+    @media(max-width:640px) {
+      nav { padding:0 16px; }
+      .hero { padding:36px 20px 24px; }
+      .hero h1 { font-size:22px; }
+      .check-wrap { padding:0 16px; margin:24px auto 64px; }
+      .step-card { padding:24px 20px; }
+      .cta-btns { flex-direction:column; align-items:center; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">よりそい<span>マネー</span></a>
+  <a href="index.html" class="back-link">← トップへ戻る</a>
+</nav>
+
+<div class="hero">
+  <div class="hero-badge">無料・匿名・約3分</div>
+  <h1>借金チェック</h1>
+  <p>5つの質問に答えるだけ。今の借金状況から<br>自力返済か、専門家への相談が必要かがわかります。</p>
+  <div class="hero-meta">
+    <span>⏱ <b>約3分</b>で完了</span>
+    <span>📋 <b>5問</b>の質問</span>
+    <span>🔒 登録・個人情報<b>不要</b></span>
+  </div>
+</div>
+
+<div class="check-wrap">
+
+  <div class="progress-wrap" id="progressWrap">
+    <div class="progress-steps">
+      <div class="step-dot active" id="dot1">1</div>
+      <div class="step-dot" id="dot2">2</div>
+      <div class="step-dot" id="dot3">3</div>
+      <div class="progress-line" id="progressLine" style="width:0%"></div>
+    </div>
+    <div class="progress-labels">
+      <span class="active" id="lbl1">借入状況</span>
+      <span id="lbl2">返済状況</span>
+      <span id="lbl3">生活への影響</span>
+    </div>
+  </div>
+
+  <!-- STEP 1: 借入状況 -->
+  <div class="step-card active" id="step1">
+    <div class="step-header">
+      <div class="step-num">STEP 1 / 3</div>
+      <div class="step-title">借入の状況を教えてください</div>
+      <div class="step-desc">おおよその金額で構いません</div>
+    </div>
+
+    <div class="question">
+      <div class="question-label"><span class="q-num">1</span>借入の総額はどのくらいですか？</div>
+      <div class="radio-list">
+        <div class="radio-item">
+          <input type="radio" name="q_total" id="t1" value="0">
+          <label for="t1"><span class="radio-icon">💴</span><span class="radio-text"><span class="radio-main">50万円未満</span></span><span class="radio-check"></span></label>
+        </div>
+        <div class="radio-item">
+          <input type="radio" name="q_total" id="t2" value="1">
+          <label for="t2"><span class="radio-icon">💴</span><span class="radio-text"><span class="radio-main">50〜100万円</span></span><span class="radio-check"></span></label>
+        </div>
+        <div class="radio-item">
+          <input type="radio" name="q_total" id="t3" value="2">
+          <label for="t3"><span class="radio-icon">💴</span><span class="radio-text"><span class="radio-main">100〜300万円</span></span><span class="radio-check"></span></label>
+        </div>
+        <div class="radio-item">
+          <input type="radio" name="q_total" id="t4" value="3">
+          <label for="t4"><span class="radio-icon">💴</span><span class="radio-text"><span class="radio-main">300万円以上</span></span><span class="radio-check"></span></label>
+        </div>
+      </div>
+    </div>
+
+    <div class="question">
+      <div class="question-label"><span class="q-num">2</span>借入先（金融機関・カード会社）の数は？</div>
+      <div class="radio-list">
+        <div class="radio-item">
+          <input type="radio" name="q_count" id="c1" value="0">
+          <label for="c1"><span class="radio-icon">1️⃣</span><span class="radio-text"><span class="radio-main">1社のみ</span></span><span class="radio-check"></span></label>
+        </div>
+        <div class="radio-item">
+          <input type="radio" name="q_count" id="c2" value="1">
+          <label for="c2"><span class="radio-icon">2️⃣</span><span class="radio-text"><span class="radio-main">2〜3社</span></span><span class="radio-check"></span></label>
+        </div>
+        <div class="radio-item">
+          <input type="radio" name="q_count" id="c3" value="2">
+          <label for="c3"><span class="radio-icon">🔢</span><span class="radio-text"><span class="radio-main">4社以上</span><span class="radio-sub">多重債務の状態</span></span><span class="radio-check"></span></label>
+        </div>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn-next" id="btn1" onclick="goNext(1)" disabled>返済状況をチェック →</button>
+    </div>
+  </div>
+
+  <!-- STEP 2: 返済状況 -->
+  <div class="step-card" id="step2">
+    <div class="step-header">
+      <div class="step-num">STEP 2 / 3</div>
+      <div class="step-title">返済の状況を教えてください</div>
+      <div class="step-desc">現在の収入と返済の割合を確認します</div>
+    </div>
+
+    <div class="question">
+      <div class="question-label"><span class="q-num">3</span>月の手取り収入に対して、返済額の割合は？</div>
+      <div class="radio-list">
+        <div class="radio-item">
+          <input type="radio" name="q_ratio" id="r1" value="0">
+          <label for="r1"><span class="radio-icon">😊</span><span class="radio-text"><span class="radio-main">2割未満</span><span class="radio-sub">返済に余裕がある</span></span><span class="radio-check"></span></label>
+        </div>
+        <div class="radio-item">
+          <input type="radio" name="q_ratio" id="r2" value="1">
+          <label for="r2"><span class="radio-icon">😐</span><span class="radio-text"><span class="radio-main">2〜3割</span><span class="radio-sub">少し苦しいが何とかなっている</span></span><span class="radio-check"></span></label>
+        </div>
+        <div class="radio-item">
+          <input type="radio" name="q_ratio" id="r3" value="2">
+          <label for="r3"><span class="radio-icon">😰</span><span class="radio-text"><span class="radio-main">3〜5割</span><span class="radio-sub">毎月の返済が重くなってきた</span></span><span class="radio-check"></span></label>
+        </div>
+        <div class="radio-item">
+          <input type="radio" name="q_ratio" id="r4" value="3">
+          <label for="r4"><span class="radio-icon">😱</span><span class="radio-text"><span class="radio-main">5割以上・返済できていない</span><span class="radio-sub">滞納・借り替えで回している</span></span><span class="radio-check"></span></label>
+        </div>
+      </div>
+    </div>
+
+    <div class="question">
+      <div class="question-label"><span class="q-num">4</span>返済が遅れた（滞納した）ことがありますか？</div>
+      <div class="radio-list">
+        <div class="radio-item">
+          <input type="radio" name="q_late" id="l1" value="0">
+          <label for="l1"><span class="radio-icon">✅</span><span class="radio-text"><span class="radio-main">ない</span></span><span class="radio-check"></span></label>
+        </div>
+        <div class="radio-item">
+          <input type="radio" name="q_late" id="l2" value="1">
+          <label for="l2"><span class="radio-icon">⚠️</span><span class="radio-text"><span class="radio-main">1〜2回ある</span></span><span class="radio-check"></span></label>
+        </div>
+        <div class="radio-item">
+          <input type="radio" name="q_late" id="l3" value="2">
+          <label for="l3"><span class="radio-icon">🚨</span><span class="radio-text"><span class="radio-main">繰り返している・今も遅れている</span></span><span class="radio-check"></span></label>
+        </div>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn-back" onclick="goBack(2)">← 戻る</button>
+      <button class="btn-next" id="btn2" onclick="goNext(2)" disabled>生活への影響をチェック →</button>
+    </div>
+  </div>
+
+  <!-- STEP 3: 生活への影響 -->
+  <div class="step-card" id="step3">
+    <div class="step-header">
+      <div class="step-num">STEP 3 / 3</div>
+      <div class="step-title">生活への影響について</div>
+      <div class="step-desc">最後の質問です</div>
+    </div>
+
+    <div class="question">
+      <div class="question-label"><span class="q-num">5</span>借金について当てはまるものは？</div>
+      <div class="radio-list">
+        <div class="radio-item">
+          <input type="radio" name="q_life" id="li1" value="0">
+          <label for="li1"><span class="radio-icon">😌</span><span class="radio-text"><span class="radio-main">家族も知っていて、一緒に返済中</span></span><span class="radio-check"></span></label>
+        </div>
+        <div class="radio-item">
+          <input type="radio" name="q_life" id="li2" value="1">
+          <label for="li2"><span class="radio-icon">🤐</span><span class="radio-text"><span class="radio-main">家族には内緒にしている</span></span><span class="radio-check"></span></label>
+        </div>
+        <div class="radio-item">
+          <input type="radio" name="q_life" id="li3" value="2">
+          <label for="li3"><span class="radio-icon">😔</span><span class="radio-text"><span class="radio-main">借金のことで眠れない・日常生活に支障がある</span></span><span class="radio-check"></span></label>
+        </div>
+        <div class="radio-item">
+          <input type="radio" name="q_life" id="li4" value="3">
+          <label for="li4"><span class="radio-icon">🆘</span><span class="radio-text"><span class="radio-main">督促や取り立てが来ている</span></span><span class="radio-check"></span></label>
+        </div>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn-back" onclick="goBack(3)">← 戻る</button>
+      <button class="btn-next" id="btn3" onclick="showResult()" disabled>診断結果を見る →</button>
+    </div>
+  </div>
+
+  <!-- 結果 -->
+  <div id="result">
+    <div id="resultCard" class="result-level-card"></div>
+
+    <div class="result-section">
+      <div class="result-section-title"><span>📋</span>状況の解説</div>
+      <div class="result-desc-text" id="resultDesc"></div>
+    </div>
+
+    <div class="result-section">
+      <div class="result-section-title"><span>🗺</span>選択肢の目安</div>
+      <div class="option-list" id="optionList"></div>
+    </div>
+
+    <div class="result-section">
+      <div class="result-section-title"><span>👣</span>まず動くべき3ステップ</div>
+      <div class="steps-list" id="stepsList"></div>
+    </div>
+
+    <div class="cta-section">
+      <h3>具体的な状況をAIに話してみる</h3>
+      <p>名前も登録も不要。今の状況を整理するだけでも、気持ちが楽になります。</p>
+      <div class="cta-btns">
+        <a href="chat.html" class="cta-btn-primary">AIに無料で相談する</a>
+        <a href="articles/debt-settlement.html" class="cta-btn-secondary">債務整理の解説を読む</a>
+      </div>
+    </div>
+
+    <div class="disclaimer">
+      ※ 本チェックは参考情報の提供を目的としており、法律・財務アドバイスではありません。具体的な対応については弁護士・司法書士などの専門家にご相談ください。
+    </div>
+
+    <button class="retry-btn" onclick="retry()">もう一度チェックする</button>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-links">
+    <a href="index.html">トップ</a>
+    <a href="article-list.html">記事一覧</a>
+    <a href="chat.html">AI相談</a>
+    <a href="privacy.html">プライバシーポリシー</a>
+  </div>
+  <div class="footer-copy">© 2026 よりそいマネー. All rights reserved.</div>
+</footer>
+
+<script>
+  const scores = { q_total:0, q_count:0, q_ratio:0, q_late:0, q_life:0 };
+
+  function updateScore(name, val) {
+    scores[name] = parseInt(val);
+    checkStep();
+  }
+
+  document.querySelectorAll('input[type=radio]').forEach(r => {
+    r.addEventListener('change', () => updateScore(r.name, r.value));
+  });
+
+  function checkStep() {
+    const s1 = document.querySelector('input[name=q_total]:checked') && document.querySelector('input[name=q_count]:checked');
+    const s2 = document.querySelector('input[name=q_ratio]:checked') && document.querySelector('input[name=q_late]:checked');
+    const s3 = document.querySelector('input[name=q_life]:checked');
+    if (document.getElementById('btn1')) document.getElementById('btn1').disabled = !s1;
+    if (document.getElementById('btn2')) document.getElementById('btn2').disabled = !s2;
+    if (document.getElementById('btn3')) document.getElementById('btn3').disabled = !s3;
+  }
+
+  function goNext(step) {
+    setDone(step);
+    document.getElementById('step'+step).classList.remove('active');
+    document.getElementById('step'+(step+1)).classList.add('active');
+    setActive(step+1);
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+
+  function goBack(step) {
+    document.getElementById('step'+step).classList.remove('active');
+    document.getElementById('step'+(step-1)).classList.add('active');
+    setActive(step-1);
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+
+  function setActive(n) {
+    [1,2,3].forEach(i => {
+      const dot = document.getElementById('dot'+i);
+      const lbl = document.getElementById('lbl'+i);
+      dot.classList.remove('active','done');
+      lbl.classList.remove('active','done');
+      if (i < n) { dot.classList.add('done'); lbl.classList.add('done'); }
+      if (i === n) { dot.classList.add('active'); lbl.classList.add('active'); }
+    });
+    const pct = [(n-1)/2*100];
+    document.getElementById('progressLine').style.width = pct+'%';
+  }
+
+  function setDone(n) {
+    document.getElementById('dot'+n).classList.remove('active');
+    document.getElementById('dot'+n).classList.add('done');
+    document.getElementById('lbl'+n).classList.remove('active');
+    document.getElementById('lbl'+n).classList.add('done');
+  }
+
+  function showResult() {
+    const total = scores.q_total + scores.q_count + scores.q_ratio + scores.q_late + scores.q_life;
+
+    document.getElementById('step3').classList.remove('active');
+    document.getElementById('progressWrap').style.display = 'none';
+    document.getElementById('result').style.display = 'block';
+    window.scrollTo({top:0,behavior:'smooth'});
+
+    let level, color, name, sub, desc, options, steps;
+
+    if (total <= 3) {
+      level='green'; color='linear-gradient(135deg,#276749,#38A169)';
+      name='自力返済の可能性あり'; sub='計画を立てれば抜け出せる状態です';
+      desc='現時点では、収入と返済のバランスが比較的保たれています。ただし、このまま放置すると悪化する可能性もあります。早めに返済計画を見直して、利息を減らす工夫をしましょう。';
+      options = [
+        {type:'rec', title:'繰り上げ返済・利息の高い順に返す（雪だるま式返済）', desc:'利率が高いローンから順番に返済することで、総支払額を大幅に削減できます。'},
+        {type:'neu', title:'借り換え・おまとめローンを検討', desc:'複数の借入を1本にまとめることで、金利を下げられる場合があります。'},
+        {type:'neu', title:'任意整理（軽度の場合）', desc:'利息のカットだけを交渉する方法。信用情報への影響はありますが、元金は返済します。'},
+      ];
+      steps = [
+        {n:'1', t:'全ての借入を一覧にする', d:'借入先・残高・金利・月返済額を紙に書き出す'},
+        {n:'2', t:'高金利のものから返済順を決める', d:'消費者金融・リボ払いは金利が高いため優先的に'},
+        {n:'3', t:'家計を見直して返済額を増やす', d:'固定費の見直しで月1〜3万円の捻出を目指す'},
+      ];
+    } else if (total <= 7) {
+      level='yellow'; color='linear-gradient(135deg,#B7791F,#D69E2E)';
+      name='要注意・見直しが必要'; sub='このままでは悪化するリスクがあります';
+      desc='返済が収入の多くを占めており、このまま続けると生活が立ち行かなくなる可能性があります。自力返済にこだわらず、法的な手続きも含めて選択肢を広げることを検討してください。';
+      options = [
+        {type:'rec', title:'任意整理', desc:'弁護士・司法書士が利息をカットする交渉を行います。毎月の返済額を大幅に下げられる場合があります。'},
+        {type:'neu', title:'個人再生', desc:'借金を大幅（最大5分の1）に減額できる法的手続き。住宅ローンがある場合でも自宅を守れます。'},
+        {type:'wrn', title:'自己破産', desc:'借金をゼロにできますが、一定の財産を失います。収入が低く、返済が見込めない場合に検討。'},
+      ];
+      steps = [
+        {n:'1', t:'無料の法律相談に行く', d:'弁護士会・司法書士会の無料相談窓口を利用する'},
+        {n:'2', t:'任意整理の見積もりをとる', d:'複数の弁護士に相談し、費用と効果を比較する'},
+        {n:'3', t:'信頼できる人に打ち明ける', d:'一人で抱え込まず、家族や専門家に話す'},
+      ];
+    } else {
+      level='red'; color='linear-gradient(135deg,#742A2A,#C53030)';
+      name='専門家への相談が必要'; sub='今すぐ動くことで状況は変えられます';
+      desc='督促や滞納が続いている状態は、放置すると裁判・差し押さえに発展するリスクがあります。しかし、法的手続きによって借金をゼロにしたり大幅に減らしたりすることは可能です。一人で抱え込まず、今すぐ専門家に相談してください。';
+      options = [
+        {type:'rec', title:'個人再生', desc:'借金を最大5分の1まで減額できる法的手続き。安定した収入があれば利用できます。'},
+        {type:'rec', title:'自己破産', desc:'借金をゼロにできます。免責が認められれば返済義務がなくなります。'},
+        {type:'neu', title:'任意整理', desc:'借入先によっては利息カット交渉が可能。督促を止める効果もあります。'},
+      ];
+      steps = [
+        {n:'1', t:'今日、弁護士・司法書士に連絡する', d:'法テラス（0120-078374）なら費用立替制度あり'},
+        {n:'2', t:'督促への対応は専門家に任せる', d:'受任通知を送ることで督促が止まります'},
+        {n:'3', t:'自分を責めない', d:'借金問題は法律で解決できます。一歩踏み出すことが大切'},
+      ];
+    }
+
+    document.getElementById('resultCard').style.background = color;
+    document.getElementById('resultCard').innerHTML = `
+      <div class="result-level-label">診断結果</div>
+      <div class="result-level-name">${name}</div>
+      <div class="result-level-sub">${sub}</div>
+    `;
+    document.getElementById('resultDesc').textContent = desc;
+
+    document.getElementById('optionList').innerHTML = options.map(o => `
+      <div class="option-item ${o.type==='rec'?'recommend':o.type==='wrn'?'warn':'neutral'}">
+        <span class="option-badge ${o.type==='rec'?'rec':o.type==='wrn'?'wrn':'neu'}">${o.type==='rec'?'おすすめ':o.type==='wrn'?'要検討':'選択肢'}</span>
+        <div><div class="option-title">${o.title}</div><div class="option-desc">${o.desc}</div></div>
+      </div>
+    `).join('');
+
+    document.getElementById('stepsList').innerHTML = steps.map(s => `
+      <div class="step-item">
+        <div class="step-circle">${s.n}</div>
+        <div><div class="step-content-title">${s.t}</div><div class="step-content-desc">${s.d}</div></div>
+      </div>
+    `).join('');
+  }
+
+  function retry() {
+    document.querySelectorAll('input[type=radio]').forEach(r => r.checked=false);
+    Object.keys(scores).forEach(k => scores[k]=0);
+    document.getElementById('result').style.display='none';
+    document.getElementById('progressWrap').style.display='block';
+    ['step1','step2','step3'].forEach((id,i) => {
+      document.getElementById(id).classList.toggle('active', i===0);
+    });
+    [1,2,3].forEach(i => {
+      document.getElementById('dot'+i).className = 'step-dot' + (i===1?' active':'');
+      document.getElementById('lbl'+i).className = i===1?'active':'';
+    });
+    document.getElementById('progressLine').style.width='0%';
+    ['btn1','btn2','btn3'].forEach(id => document.getElementById(id).disabled=true);
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+</script>
+
+</body>
+</html>

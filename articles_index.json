@@ -1,0 +1,47 @@
+[
+  {
+    "id": 1,
+    "file": "articles/debt-alone.html",
+    "title": "借金100万円を一人で抱え込んだ末路と解決の第一歩",
+    "category": "debt",
+    "cat_label": "借金・債務",
+    "keyword": "借金 解決 相談",
+    "created_at": "2026-04-29"
+  },
+  {
+    "id": 2,
+    "file": "articles/gambling-debt.html",
+    "title": "ギャンブルで借金が膨らんでいる…今すぐできる3つの対処法",
+    "category": "gambling",
+    "cat_label": "ギャンブル依存",
+    "keyword": "ギャンブル 借金 依存症",
+    "created_at": "2026-04-29"
+  },
+  {
+    "id": 3,
+    "file": "articles/secret-debt.html",
+    "title": "家族に内緒の借金、バレる前にできること",
+    "category": "family",
+    "cat_label": "家族に内緒",
+    "keyword": "借金 隠す 家族",
+    "created_at": "2026-04-29"
+  },
+  {
+    "id": 4,
+    "file": "articles/retirement-money.html",
+    "title": "老後2000万円問題の本当の対策",
+    "category": "retirement",
+    "cat_label": "老後のお金",
+    "keyword": "老後 2000万円 NISA iDeCo",
+    "created_at": "2026-04-29"
+  },
+  {
+    "id": 5,
+    "file": "articles/investment-scam.html",
+    "title": "投資詐欺にあったと気づいたら最初にすること",
+    "category": "fraud",
+    "cat_label": "投資詐欺",
+    "keyword": "投資詐欺 SNS 被害 返金",
+    "created_at": "2026-04-29"
+  }
+]

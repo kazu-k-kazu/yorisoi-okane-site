@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>返済シミュレーター｜完済まで何年？利息はいくら？ | よりそいマネー</title>
+  <meta name="description" content="借入総額・金利・月返済額を入力するだけ。完済までの期間と利息総額を自動計算。任意整理した場合との比較も表示します。">
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    :root {
+      --main: #234E52;
+      --accent: #38B2AC;
+      --accent2: #2C7A7B;
+      --bg: #F0FFF4;
+      --white: #FFFFFF;
+      --text: #2D3748;
+      --text-light: #718096;
+      --border: #E2E8F0;
+      --danger: #C53030;
+      --warn: #D69E2E;
+      --ok: #276749;
+    }
+    body { font-family:'Hiragino Sans','Yu Gothic',sans-serif; background:var(--bg); color:var(--text); line-height:1.7; }
+
+    nav { background:var(--white); border-bottom:1px solid var(--border); padding:0 40px; height:64px; display:flex; align-items:center; justify-content:space-between; position:sticky; top:0; z-index:100; box-shadow:0 1px 4px rgba(0,0,0,0.06); }
+    .logo { font-size:20px; font-weight:700; color:var(--text); text-decoration:none; }
+    .logo span { color:var(--accent); }
+    .back-link { color:var(--accent); text-decoration:none; font-size:14px; }
+
+    .hero { background:linear-gradient(135deg,#E6FFFA,#EBF8FF); padding:40px 40px 28px; text-align:center; border-bottom:1px solid var(--border); }
+    .hero-badge { display:inline-block; background:rgba(56,178,172,0.12); border:1px solid rgba(56,178,172,0.3); color:var(--accent); font-size:12px; font-weight:600; padding:4px 14px; border-radius:20px; margin-bottom:12px; }
+    .hero h1 { font-size:26px; font-weight:700; color:#1A202C; margin-bottom:8px; }
+    .hero p { color:var(--text-light); font-size:14px; }
+
+    .sim-wrap { max-width:1000px; margin:32px auto 80px; padding:0 24px; display:grid; grid-template-columns:1fr 1fr; gap:24px; align-items:start; }
+
+    /* 入力パネル */
+    .input-panel { background:var(--white); border-radius:16px; padding:32px; box-shadow:0 2px 16px rgba(45,55,72,0.08); }
+    .panel-title { font-size:16px; font-weight:700; color:var(--main); margin-bottom:24px; padding-bottom:12px; border-bottom:2px solid var(--border); display:flex; align-items:center; gap:8px; }
+
+    .field { margin-bottom:28px; }
+    .field label { font-size:14px; font-weight:700; color:var(--text); display:block; margin-bottom:10px; }
+    .field label span { font-weight:400; color:var(--text-light); font-size:12px; margin-left:6px; }
+
+    .slider-val { font-size:28px; font-weight:700; color:var(--accent); margin-bottom:8px; }
+    .slider-val span { font-size:14px; color:var(--text-light); font-weight:400; }
+
+    input[type=range] { width:100%; -webkit-appearance:none; height:6px; border-radius:3px; background:linear-gradient(to right, #38B2AC var(--pct,50%), #E2E8F0 var(--pct,50%)); outline:none; cursor:pointer; }
+    input[type=range]::-webkit-slider-thumb { -webkit-appearance:none; width:22px; height:22px; border-radius:50%; background:var(--accent); box-shadow:0 2px 6px rgba(56,178,172,0.4); cursor:pointer; }
+    .slider-labels { display:flex; justify-content:space-between; font-size:11px; color:var(--text-light); margin-top:4px; }
+
+    .rate-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+    .rate-card input[type=radio] { display:none; }
+    .rate-card label { display:block; border:2px solid var(--border); border-radius:10px; padding:10px 14px; cursor:pointer; transition:all 0.2s; text-align:center; }
+    .rate-card label:hover { border-color:var(--accent); }
+    .rate-card input:checked + label { border-color:var(--accent); background:#E6FFFA; }
+    .rate-main { font-size:15px; font-weight:700; color:var(--text); display:block; }
+    .rate-card input:checked + label .rate-main { color:var(--accent2); }
+    .rate-sub { font-size:11px; color:var(--text-light); }
+
+    /* 結果パネル */
+    .result-panel { position:sticky; top:88px; }
+
+    .result-main { background:linear-gradient(135deg,#234E52,#2C7A7B); border-radius:16px; padding:28px; text-align:center; color:#fff; margin-bottom:16px; }
+    .result-main-label { font-size:12px; opacity:0.8; margin-bottom:6px; letter-spacing:0.05em; }
+    .result-main-value { font-size:56px; font-weight:700; line-height:1; }
+    .result-main-unit { font-size:16px; opacity:0.8; margin-top:4px; }
+    .result-main-sub { font-size:12px; opacity:0.65; margin-top:8px; }
+
+    .result-cards { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:16px; }
+    .result-card { background:var(--white); border:1px solid var(--border); border-radius:12px; padding:18px; text-align:center; box-shadow:0 1px 6px rgba(45,55,72,0.05); }
+    .result-card-icon { font-size:24px; margin-bottom:6px; }
+    .result-card-label { font-size:11px; color:var(--text-light); margin-bottom:4px; }
+    .result-card-value { font-size:20px; font-weight:700; color:var(--text); }
+    .result-card-sub { font-size:10px; color:var(--text-light); margin-top:3px; }
+    .result-card.danger .result-card-value { color:var(--danger); }
+    .result-card.ok .result-card-value { color:var(--ok); }
+    .result-card.warn .result-card-value { color:var(--warn); }
+
+    /* 返済比率メーター */
+    .ratio-wrap { background:var(--white); border-radius:12px; padding:18px; margin-bottom:16px; box-shadow:0 1px 6px rgba(45,55,72,0.05); }
+    .ratio-label { font-size:13px; font-weight:700; color:var(--text); margin-bottom:10px; display:flex; justify-content:space-between; align-items:center; }
+    .ratio-badge { font-size:11px; font-weight:700; padding:2px 10px; border-radius:10px; }
+    .ratio-bar-bg { background:#F0F4F8; border-radius:4px; height:10px; overflow:hidden; }
+    .ratio-bar { height:10px; border-radius:4px; transition:width 0.4s ease, background 0.4s ease; }
+    .ratio-note { font-size:11px; color:var(--text-light); margin-top:6px; }
+
+    /* 任意整理比較 */
+    .compare-box { background:#FFFBEB; border:1px solid #F6E05E; border-radius:12px; padding:18px; margin-bottom:16px; }
+    .compare-title { font-size:13px; font-weight:700; color:#744210; margin-bottom:12px; display:flex; align-items:center; gap:6px; }
+    .compare-row { display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid rgba(246,224,94,0.4); font-size:13px; }
+    .compare-row:last-child { border-bottom:none; }
+    .compare-row-label { color:var(--text-light); }
+    .compare-row-val { font-weight:700; color:var(--text); }
+    .compare-save { background:#F0FFF4; border:1px solid #9AE6B4; border-radius:8px; padding:10px 14px; text-align:center; margin-top:10px; font-size:13px; color:#276749; font-weight:700; }
+
+    /* CTA */
+    .cta-box { background:linear-gradient(135deg,#234E52,#2C7A7B); border-radius:12px; padding:22px; text-align:center; }
+    .cta-box h3 { color:#fff; font-size:16px; font-weight:700; margin-bottom:6px; }
+    .cta-box p { color:rgba(255,255,255,0.8); font-size:12px; margin-bottom:16px; }
+    .cta-btn { display:block; background:#fff; color:#234E52; padding:13px 24px; border-radius:8px; font-weight:700; font-size:15px; text-decoration:none; transition:opacity 0.2s; margin-bottom:8px; }
+    .cta-btn:hover { opacity:0.92; }
+    .cta-sub-btn { display:block; color:rgba(255,255,255,0.8); font-size:12px; text-decoration:none; }
+    .cta-sub-btn:hover { color:#fff; }
+
+    .disclaimer { font-size:11px; color:#A0AEC0; line-height:1.8; background:#F7FAFC; border-radius:8px; padding:12px 16px; margin-top:16px; }
+
+    /* 不能メッセージ */
+    .impossible { background:#FFF5F5; border:1px solid #FEB2B2; border-radius:12px; padding:20px; text-align:center; margin-bottom:16px; display:none; }
+    .impossible-icon { font-size:32px; margin-bottom:8px; }
+    .impossible-title { font-size:16px; font-weight:700; color:var(--danger); margin-bottom:6px; }
+    .impossible-desc { font-size:13px; color:#718096; }
+
+    footer { background:var(--main); color:#A0AEC0; padding:28px 40px 20px; text-align:center; margin-top:40px; }
+    .footer-links { display:flex; gap:20px; justify-content:center; margin-bottom:12px; }
+    .footer-links a { color:#A0AEC0; text-decoration:none; font-size:13px; }
+    .footer-copy { font-size:12px; color:rgba(160,174,192,0.7); }
+
+    @media(max-width:768px) {
+      nav { padding:0 16px; }
+      .hero { padding:28px 20px 20px; }
+      .hero h1 { font-size:22px; }
+      .sim-wrap { grid-template-columns:1fr; margin:20px auto 60px; }
+      .result-panel { position:static; }
+      .input-panel, .result-panel > * { border-radius:12px; }
+      .result-main-value { font-size:44px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">よりそい<span>マネー</span></a>
+  <a href="index.html" class="back-link">← トップ</a>
+</nav>
+
+<div class="hero">
+  <div class="hero-badge">無料・匿名・リアルタイム計算</div>
+  <h1>返済シミュレーター</h1>
+  <p>借入額・金利・月返済額を動かすだけ。完済まで何年かかるか、利息はいくらかが即わかります。</p>
+</div>
+
+<div class="sim-wrap">
+
+  <!-- 入力パネル -->
+  <div class="input-panel">
+    <div class="panel-title">⚙️ 条件を入力</div>
+
+    <div class="field">
+      <label>借入総額</label>
+      <div class="slider-val" id="totalDisp">150<span>万円</span></div>
+      <input type="range" id="totalSlider" min="10" max="1000" step="10" value="150" oninput="onInput()">
+      <div class="slider-labels"><span>10万円</span><span>1,000万円</span></div>
+    </div>
+
+    <div class="field">
+      <label>金利（年利）<span>借用書・明細で確認</span></label>
+      <div class="rate-grid">
+        <div class="rate-card">
+          <input type="radio" name="rate" id="r3" value="3">
+          <label for="r3"><span class="rate-main">年3%</span><span class="rate-sub">銀行ローン・おまとめ</span></label>
+        </div>
+        <div class="rate-card">
+          <input type="radio" name="rate" id="r10" value="10">
+          <label for="r10"><span class="rate-main">年10%</span><span class="rate-sub">信販系カードローン</span></label>
+        </div>
+        <div class="rate-card">
+          <input type="radio" name="rate" id="r15" value="15" checked>
+          <label for="r15"><span class="rate-main">年15%</span><span class="rate-sub">消費者金融（中）</span></label>
+        </div>
+        <div class="rate-card">
+          <input type="radio" name="rate" id="r18" value="18">
+          <label for="r18"><span class="rate-main">年18%</span><span class="rate-sub">消費者金融（上限）</span></label>
+        </div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>毎月の返済額</label>
+      <div class="slider-val" id="payDisp">3<span>万円</span></div>
+      <input type="range" id="paySlider" min="1" max="50" step="1" value="3" oninput="onInput()">
+      <div class="slider-labels"><span>1万円</span><span>50万円</span></div>
+    </div>
+
+    <div class="field">
+      <label>月の手取り収入<span>返済比率の計算に使います</span></label>
+      <div class="slider-val" id="incomeDisp">25<span>万円</span></div>
+      <input type="range" id="incomeSlider" min="10" max="100" step="1" value="25" oninput="onInput()">
+      <div class="slider-labels"><span>10万円</span><span>100万円</span></div>
+    </div>
+  </div>
+
+  <!-- 結果パネル -->
+  <div class="result-panel">
+
+    <!-- 完済不能メッセージ -->
+    <div class="impossible" id="impossibleMsg">
+      <div class="impossible-icon">⚠️</div>
+      <div class="impossible-title">返済額が利息を下回っています</div>
+      <div class="impossible-desc">このままでは元金が減らず、完済できません。<br>返済額を増やすか、金利を下げる方法を検討しましょう。</div>
+    </div>
+
+    <!-- メイン結果 -->
+    <div class="result-main" id="mainResult">
+      <div class="result-main-label">完済まで</div>
+      <div class="result-main-value" id="months">—</div>
+      <div class="result-main-unit" id="monthsUnit">ヶ月</div>
+      <div class="result-main-sub" id="yearsNote"></div>
+    </div>
+
+    <!-- サブ数値 -->
+    <div class="result-cards">
+      <div class="result-card" id="totalPayCard">
+        <div class="result-card-icon">💴</div>
+        <div class="result-card-label">総支払額</div>
+        <div class="result-card-value" id="totalPay">—</div>
+        <div class="result-card-sub">元金＋利息</div>
+      </div>
+      <div class="result-card" id="interestCard">
+        <div class="result-card-icon">📈</div>
+        <div class="result-card-label">利息の合計</div>
+        <div class="result-card-value" id="interest">—</div>
+        <div class="result-card-sub">余分に払う金額</div>
+      </div>
+    </div>
+
+    <!-- 返済比率メーター -->
+    <div class="ratio-wrap">
+      <div class="ratio-label">
+        返済比率（収入に対する返済の割合）
+        <span class="ratio-badge" id="ratioBadge"></span>
+      </div>
+      <div class="ratio-bar-bg">
+        <div class="ratio-bar" id="ratioBar"></div>
+      </div>
+      <div class="ratio-note" id="ratioNote"></div>
+    </div>
+
+    <!-- 任意整理比較 -->
+    <div class="compare-box">
+      <div class="compare-title">⚡ 任意整理した場合との比較</div>
+      <div class="compare-row">
+        <span class="compare-row-label">このまま返済（利息あり）</span>
+        <span class="compare-row-val" id="withInterest">—</span>
+      </div>
+      <div class="compare-row">
+        <span class="compare-row-label">任意整理後（利息カット）</span>
+        <span class="compare-row-val" id="withoutInterest" style="color:#276749;">—</span>
+      </div>
+      <div class="compare-save" id="savingMsg">—</div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-box">
+      <h3>利息をなくす方法、相談してみる</h3>
+      <p>名前も登録も不要。今の状況をAIに話すだけで、選択肢が整理されます。</p>
+      <a href="chat.html" class="cta-btn">AIに無料で相談する</a>
+      <a href="articles/debt-settlement.html" class="cta-sub-btn">任意整理・債務整理の解説を読む →</a>
+    </div>
+
+    <div class="disclaimer">
+      ※ 本シミュレーターの結果は参考値です。実際の返済額・期間は金利の種類や契約内容により異なります。法律・財務アドバイスではありません。
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-links">
+    <a href="index.html">トップ</a>
+    <a href="debt-check.html">借金チェック</a>
+    <a href="article-list.html">記事一覧</a>
+    <a href="chat.html">AI相談</a>
+    <a href="privacy.html">プライバシーポリシー</a>
+  </div>
+  <div class="footer-copy">© 2026 よりそいマネー. All rights reserved.</div>
+</footer>
+
+<script>
+  function fmt(man) {
+    if (man >= 100) return Math.round(man / 100) / 10 + '千万円';
+    if (man >= 10) return man + '万円';
+    return (man * 10000).toLocaleString() + '円';
+  }
+
+  function setSliderBg(el) {
+    const pct = ((el.value - el.min) / (el.max - el.min)) * 100;
+    el.style.setProperty('--pct', pct + '%');
+  }
+
+  function onInput() {
+    const totalSlider = document.getElementById('totalSlider');
+    const paySlider = document.getElementById('paySlider');
+    const incomeSlider = document.getElementById('incomeSlider');
+    setSliderBg(totalSlider);
+    setSliderBg(paySlider);
+    setSliderBg(incomeSlider);
+
+    const P = parseInt(totalSlider.value) * 10000;
+    const M = parseInt(paySlider.value) * 10000;
+    const income = parseInt(incomeSlider.value) * 10000;
+    const rateEl = document.querySelector('input[name=rate]:checked');
+    const annualRate = rateEl ? parseFloat(rateEl.value) : 15;
+    const r = annualRate / 100 / 12;
+
+    document.getElementById('totalDisp').innerHTML = totalSlider.value + '<span>万円</span>';
+    document.getElementById('payDisp').innerHTML = paySlider.value + '<span>万円</span>';
+    document.getElementById('incomeDisp').innerHTML = incomeSlider.value + '<span>万円</span>';
+
+    const monthlyInterest = P * r;
+    const impossible = M <= monthlyInterest;
+
+    document.getElementById('impossibleMsg').style.display = impossible ? 'block' : 'none';
+    document.getElementById('mainResult').style.opacity = impossible ? '0.3' : '1';
+
+    if (!impossible) {
+      const n = Math.ceil(-Math.log(1 - (r * P) / M) / Math.log(1 + r));
+      const totalPay = M * n;
+      const interest = totalPay - P;
+      const years = Math.floor(n / 12);
+      const mons = n % 12;
+
+      document.getElementById('months').textContent = n;
+      document.getElementById('monthsUnit').textContent = 'ヶ月';
+      document.getElementById('yearsNote').textContent =
+        years > 0 ? `（約${years}年${mons > 0 ? mons + 'ヶ月' : ''}）` : '';
+
+      const totalPayMan = Math.round(totalPay / 10000);
+      const interestMan = Math.round(interest / 10000);
+      document.getElementById('totalPay').textContent = fmt(totalPayMan);
+      document.getElementById('interest').textContent = fmt(interestMan);
+
+      const interestCard = document.getElementById('interestCard');
+      interestCard.className = 'result-card ' + (interestMan > 50 ? 'danger' : interestMan > 20 ? 'warn' : 'ok');
+
+      // 返済比率
+      const ratio = Math.round((M / income) * 100);
+      const bar = document.getElementById('ratioBar');
+      const badge = document.getElementById('ratioBadge');
+      const note = document.getElementById('ratioNote');
+      const displayRatio = Math.min(ratio, 100);
+      bar.style.width = displayRatio + '%';
+      if (ratio <= 20) {
+        bar.style.background = '#38A169';
+        badge.style.background = '#C6F6D5'; badge.style.color = '#276749';
+        badge.textContent = ratio + '％ ／ 安全';
+        note.textContent = '収入の2割以下は返済の黄金ライン。このまま続けましょう。';
+      } else if (ratio <= 35) {
+        bar.style.background = '#D69E2E';
+        badge.style.background = '#FEFCBF'; badge.style.color = '#744210';
+        badge.textContent = ratio + '％ ／ 要注意';
+        note.textContent = '収入の3割超は危険ゾーン。生活費が圧迫されやすくなります。';
+      } else {
+        bar.style.background = '#C53030';
+        badge.style.background = '#FED7D7'; badge.style.color = '#822727';
+        badge.textContent = ratio + '％ ／ 危険';
+        note.textContent = '収入の35％超は破綻リスクが高い水準。専門家への相談を検討してください。';
+      }
+
+      // 任意整理比較（利息ゼロ・同じ月返済額で比較）
+      const nNoInt = Math.ceil(P / M);
+      const totalPayNoInt = P;
+      const totalPayManNoInt = Math.round(totalPayNoInt / 10000);
+      const saving = totalPayMan - totalPayManNoInt;
+      document.getElementById('withInterest').textContent = fmt(totalPayMan) + '（' + n + 'ヶ月）';
+      document.getElementById('withoutInterest').textContent = fmt(totalPayManNoInt) + '（' + nNoInt + 'ヶ月）';
+      document.getElementById('savingMsg').textContent =
+        saving > 0 ? `任意整理で最大 ${fmt(saving)} ・ ${n - nNoInt}ヶ月 節約できる可能性があります` : '利息負担はほぼゼロです';
+    }
+  }
+
+  document.querySelectorAll('input[name=rate]').forEach(r => r.addEventListener('change', onInput));
+
+  // 初期化
+  ['totalSlider','paySlider','incomeSlider'].forEach(id => {
+    const el = document.getElementById(id);
+    setSliderBg(el);
+  });
+  onInput();
+</script>
+
+</body>
+</html>

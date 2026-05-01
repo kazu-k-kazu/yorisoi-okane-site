@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>給与が差し押さえられたら｜差し押さえの仕組みと止める方法 | よりそいマネー</title>
+  <meta name="description" content="給与の差し押さえが来てしまった方へ。差し押さえの仕組み・会社にバレる問題・止めるための手続きを具体的に解説します。">
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'Hiragino Sans','Yu Gothic',sans-serif; background:#F0FDF8; color:#2D3748; line-height:1.8; }
+    nav { background:#fff; border-bottom:1px solid #E2E8F0; padding:0 40px; height:64px; display:flex; align-items:center; justify-content:space-between; position:sticky; top:0; z-index:100; }
+    .logo { font-size:20px; font-weight:700; color:#2D3748; text-decoration:none; }
+    .logo span { color:#38B2AC; }
+    .back-link { color:#38B2AC; text-decoration:none; font-size:14px; }
+    .back-link:hover { text-decoration:underline; }
+    .container { max-width:780px; margin:48px auto; padding:0 24px; }
+    .article-header { margin-bottom:32px; }
+    .cat-tag { display:inline-block; background:rgba(56,178,172,0.1); color:#38B2AC; font-size:12px; font-weight:600; padding:4px 12px; border-radius:20px; margin-bottom:12px; }
+    h1 { font-size:28px; font-weight:700; color:#1A202C; line-height:1.4; margin-bottom:16px; }
+    .article-meta { display:flex; gap:20px; font-size:13px; color:#718096; flex-wrap:wrap; }
+    .toc { background:#fff; border:1px solid #E2E8F0; border-radius:12px; padding:24px 28px; margin-bottom:32px; }
+    .toc-title { font-size:14px; font-weight:700; color:#2D3748; margin-bottom:12px; }
+    .toc ol { padding-left:20px; }
+    .toc li { margin-bottom:8px; }
+    .toc a { color:#38B2AC; text-decoration:none; font-size:14px; }
+    .toc a:hover { text-decoration:underline; }
+    .article-body { background:#fff; border-radius:16px; padding:40px; box-shadow:0 2px 12px rgba(45,55,72,0.06); margin-bottom:24px; }
+    .article-body h2 { font-size:22px; font-weight:700; color:#2D3748; margin:40px 0 16px; padding:12px 16px; border-left:4px solid #38B2AC; background:rgba(56,178,172,0.04); border-radius:0 8px 8px 0; }
+    .article-body h2:first-child { margin-top:0; }
+    .article-body h3 { font-size:17px; font-weight:700; color:#4A5568; margin:28px 0 12px; padding-left:12px; border-left:2px solid #CBD5E0; }
+    .article-body p { margin-bottom:18px; font-size:15px; line-height:1.9; }
+    .article-body ul, .article-body ol { margin:12px 0 20px 24px; }
+    .article-body li { margin-bottom:10px; font-size:15px; line-height:1.7; }
+    .article-body strong { color:#2D3748; font-weight:700; }
+    .point-box { background:rgba(56,178,172,0.06); border:1px solid rgba(56,178,172,0.2); border-radius:10px; padding:20px 24px; margin:24px 0; }
+    .point-box-title { font-size:13px; font-weight:700; color:#38B2AC; margin-bottom:10px; }
+    .point-box ul { margin:0; padding-left:20px; }
+    .point-box li { font-size:14px; margin-bottom:6px; }
+    .warn-box { background:#FFFBEB; border:1px solid #F6E05E; border-radius:10px; padding:16px 20px; margin:24px 0; font-size:13px; color:#744210; line-height:1.7; }
+    .info-box { background:#EBF8FF; border:1px solid #BEE3F8; border-radius:10px; padding:16px 20px; margin:24px 0; font-size:13px; color:#2C5282; line-height:1.7; }
+    .calc-box { background:#F7FAFC; border:1px solid #E2E8F0; border-radius:10px; padding:20px 24px; margin:24px 0; }
+    .calc-box-title { font-size:14px; font-weight:700; color:#2D3748; margin-bottom:14px; }
+    .calc-row { display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid #E2E8F0; font-size:14px; }
+    .calc-row:last-child { border-bottom:none; font-weight:700; color:#38B2AC; }
+    .calc-label { color:#4A5568; }
+    .calc-value { font-weight:600; }
+    .summary-box { background:linear-gradient(135deg,#E6FFFA,#EBF8FF); border-radius:12px; padding:28px; margin:32px 0; }
+    .summary-box h3 { font-size:18px; font-weight:700; margin-bottom:16px; color:#2D3748; }
+    .summary-box ol { padding-left:20px; }
+    .summary-box li { margin-bottom:10px; font-size:14px; font-weight:600; color:#4A5568; }
+    .cta-box { background:linear-gradient(135deg,#2C7A7B,#285E61); border-radius:12px; padding:28px; text-align:center; margin-top:32px; }
+    .cta-box p { color:rgba(255,255,255,0.85); font-size:14px; margin-bottom:16px; }
+    .cta-btn { display:inline-block; background:#fff; color:#2C7A7B; padding:12px 32px; border-radius:8px; font-weight:700; font-size:15px; text-decoration:none; }
+    .disclaimer { background:#F7FAFC; border:1px solid #E2E8F0; border-radius:8px; padding:14px 18px; font-size:12px; color:#718096; line-height:1.7; margin-top:24px; }
+    .related { margin-top:32px; }
+    .related-title { font-size:16px; font-weight:700; margin-bottom:16px; color:#2D3748; }
+    .related-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    .related-card { background:#fff; border:1px solid #E2E8F0; border-radius:10px; padding:16px; text-decoration:none; color:inherit; transition:border-color 0.2s; }
+    .related-card:hover { border-color:#38B2AC; }
+    .related-card-tag { font-size:11px; color:#38B2AC; font-weight:600; margin-bottom:6px; }
+    .related-card-title { font-size:13px; font-weight:600; color:#2D3748; line-height:1.5; }
+    footer { text-align:center; padding:48px; color:#A0AEC0; font-size:13px; margin-top:48px; }
+    @media (max-width:768px) {
+      nav { padding:0 16px; }
+      .container { margin:24px auto; }
+      h1 { font-size:22px; }
+      .article-body { padding:24px 20px; }
+      .related-grid { grid-template-columns:1fr; }
+    }
+  
+    .source-box { background:#F7FAFC; border:1px solid #E2E8F0; border-radius:8px; padding:16px 20px; margin:24px 0 0; }
+    .source-box-title { font-size:12px; font-weight:700; color:#4A5568; margin-bottom:10px; }
+    .source-box ul { padding-left:16px; margin:0; }
+    .source-box li { font-size:11px; color:#718096; margin-bottom:6px; line-height:1.7; }
+    .source-box a { color:#38B2AC; text-decoration:none; }
+    .source-box a:hover { text-decoration:underline; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html" class="logo">よりそい<span>マネー</span></a>
+  <a href="../article-list.html" class="back-link">← 記事一覧に戻る</a>
+</nav>
+
+<div class="container">
+  <div class="article-header">
+    <span class="cat-tag">差し押さえ・強制執行</span>
+    <h1>給与が差し押さえられたら｜差し押さえの仕組みと止める方法</h1>
+    <div class="article-meta">
+      <span>2026年4月29日</span>
+      <span>読了時間：約6分</span>
+      <span>閲覧数：4,219</span>
+    </div>
+  </div>
+
+  <div class="toc">
+    <div class="toc-title">目次</div>
+    <ol>
+      <li><a href="#how">給与差し押さえの仕組み</a></li>
+      <li><a href="#amount">差し押さえられる金額の上限</a></li>
+      <li><a href="#company">会社に知られてしまうのか</a></li>
+      <li><a href="#causes">差し押さえが来やすい借金の種類</a></li>
+      <li><a href="#stop">差し押さえを止める方法</a></li>
+      <li><a href="#summary">まとめ</a></li>
+    </ol>
+  </div>
+
+  <div class="article-body">
+
+    <h2 id="how">給与差し押さえの仕組み</h2>
+    <p>給与差し押さえとは、裁判所（または行政機関）の命令によって、雇用主（会社）が従業員の給与の一部を直接債権者へ支払う強制執行手続きです。本人を飛び越えて会社に命令が届くため、「突然、今月の給与が減っていた」という形で発覚することがほとんどです。</p>
+
+    <div class="point-box">
+      <div class="point-box-title">差し押さえが実行されるまでの流れ</div>
+      <ul>
+        <li>債権者が裁判所に申し立て（貸金業者・税務署・元配偶者など）</li>
+        <li>裁判所が差し押さえ命令を発令（本人・勤務先へ同時に届く）</li>
+        <li>命令が会社に届いた翌月以降の給与から控除開始</li>
+        <li>全額回収されるか、申し立てが取り下げられるまで続く</li>
+      </ul>
+    </div>
+
+    <div class="warn-box">
+      ⚠️ 税金・養育費・健康保険料の差し押さえは裁判所不要で行政が単独で執行できます。民間の借金は裁判所を通じた手続きが必要です。
+    </div>
+
+    <h2 id="amount">差し押さえられる金額の上限</h2>
+    <p>法律（民事執行法）により、差し押さえできる給与には上限が定められています。最低限の生活を守るための保護措置です。</p>
+
+    <div class="calc-box">
+      <div class="calc-box-title">手取り月収30万円の場合の差し押さえ上限</div>
+      <div class="calc-row">
+        <span class="calc-label">手取り月収</span>
+        <span class="calc-value">30万円</span>
+      </div>
+      <div class="calc-row">
+        <span class="calc-label">差し押さえ禁止額（手取りの3/4 or 33万円のどちらか低い方）</span>
+        <span class="calc-value">22万5,000円</span>
+      </div>
+      <div class="calc-row">
+        <span class="calc-label">差し押さえ可能額（最大）</span>
+        <span class="calc-value">7万5,000円</span>
+      </div>
+    </div>
+
+    <div class="calc-box">
+      <div class="calc-box-title">手取り月収40万円の場合の差し押さえ上限</div>
+      <div class="calc-row">
+        <span class="calc-label">手取り月収</span>
+        <span class="calc-value">40万円</span>
+      </div>
+      <div class="calc-row">
+        <span class="calc-label">差し押さえ禁止額（33万円が上限のため）</span>
+        <span class="calc-value">33万円</span>
+      </div>
+      <div class="calc-row">
+        <span class="calc-label">差し押さえ可能額（最大）</span>
+        <span class="calc-value">7万円</span>
+      </div>
+    </div>
+
+    <p>手取りが33万円を超える場合は、<strong>超過分の全額</strong>が差し押さえ可能になります。つまり手取りが高いほど、より多くの金額が差し押さえられる可能性があります。</p>
+
+    <div class="info-box">
+      ℹ️ 養育費・婚姻費用に関する差し押さえは特別で、<strong>給与の1/2まで</strong>差し押さえ可能です。通常の借金より保護額が小さくなります。
+    </div>
+
+    <h2 id="company">会社に知られてしまうのか</h2>
+    <p>給与差し押さえ命令は<strong>勤務先に直接届きます</strong>。会社の経理・総務担当者には確実に知られることになります。これが多くの人にとって最も恐れる点です。</p>
+
+    <h3>会社に知られることで起きうること</h3>
+    <ul>
+      <li>経理・上司・人事担当に借金の存在が知られる</li>
+      <li>職場での評価・信頼関係への影響</li>
+      <li>管理職・経理・金融関係の職種では降格・配置転換の可能性</li>
+      <li>会社によっては就業規則違反（借金の申告義務等）として懲戒の対象になることも</li>
+    </ul>
+
+    <p>ただし、法律上は給与差し押さえを理由とした<strong>解雇は無効</strong>です（民事執行法152条）。1件の差し押さえで解雇されることはありませんが、職場環境への影響は避けられません。</p>
+
+    <h2 id="causes">差し押さえが来やすい借金の種類</h2>
+
+    <h3>民間ローン・クレジットカード</h3>
+    <p>消費者金融・クレジットカード会社は、長期滞納（6ヶ月以上が目安）が続くと裁判所へ申し立てを行います。判決確定後、給与・預金の差し押さえが実行されます。裁判の通知が届いた段階で無視すると、欠席判決で確定してしまいます。</p>
+
+    <h3>税金・社会保険料</h3>
+    <p>住民税・国民健康保険料の滞納は、行政が裁判なしで差し押さえを執行できます。督促状を無視し続けると、突然給与口座に連絡が来ることがあります。</p>
+
+    <h3>養育費・婚姻費用</h3>
+    <p>離婚後の養育費不払いは、家庭裁判所の取決めがあれば直接強制執行が可能です。2020年の法改正で要件が緩和され、差し押さえが執行されやすくなりました。</p>
+
+    <h2 id="stop">差し押さえを止める方法</h2>
+
+    <h3>方法1：債権者と和解・分割払いの交渉</h3>
+    <p>差し押さえ命令が届いた後でも、債権者と直接交渉して分割払い合意をすることで、差し押さえを取り下げてもらえる場合があります。弁護士に交渉を依頼すると合意に至りやすくなります。</p>
+
+    <h3>方法2：債務整理（任意整理・個人再生）</h3>
+    <p>弁護士・司法書士に任意整理を依頼すると、受任通知が送られた時点で差し押さえを含む取り立てが一時停止されます。個人再生の申し立てをすれば、裁判所から強制執行中止の命令が出ます。</p>
+
+    <div class="point-box">
+      <div class="point-box-title">任意整理・個人再生のどちらが向くか</div>
+      <ul>
+        <li><strong>任意整理</strong>：特定の債権者との交渉。他のローン（住宅ローンなど）に影響しにくい</li>
+        <li><strong>個人再生</strong>：借金を大幅に減額（最大1/5）できる。住宅ローン特則で自宅を守れる</li>
+        <li>どちらも差し押さえを止める効果があるが、専門家への依頼が前提</li>
+      </ul>
+    </div>
+
+    <h3>方法3：自己破産</h3>
+    <p>全ての財産を清算して借金をゼロにする手続きです。申し立てと同時に差し押さえが止まります。給与差し押さえが実行されるほど追い詰められている場合、自己破産が最も早く生活を立て直せる手段になることがあります。</p>
+
+    <div class="warn-box">
+      ⚠️ 「差し押さえが来たから退職して逃げる」は最悪の選択です。退職金・次の給与にも差し押さえは引き継がれ、さらに収入がなくなり状況が悪化します。
+    </div>
+
+    <div class="info-box">
+      ℹ️ 弁護士に依頼すると、その日から取り立て・差し押さえが止まることがほとんどです（受任通知の効果）。相談だけなら無料の事務所も多いです。
+    </div>
+
+    <div class="summary-box">
+      <h3>まとめ</h3>
+      <ol>
+        <li>給与差し押さえは裁判所命令が勤務先に届く形で執行される</li>
+        <li>差し押さえできる上限は手取りの1/4（養育費は1/2）</li>
+        <li>差し押さえを理由とした解雇は法律上無効だが職場への影響は避けられない</li>
+        <li>弁護士への依頼で受任通知を送ると差し押さえが一時停止できる</li>
+        <li>退職して逃げるのは状況を悪化させるだけ――早期の専門家相談が最善</li>
+      </ol>
+    </div>
+
+    <div class="cta-box">
+      <p>給与差し押さえのこと、一人で悩まないでください。匿名で相談できます。</p>
+      <a href="../chat.html?category=debt" class="cta-btn">AIに匿名で相談する（無料）</a>
+    </div>
+
+    
+    <div class="source-box">
+      <div class="source-box-title">📌 参考・出典</div>
+      <ul>
+        <li>裁判所「民事執行（差し押さえ）について」→ <a href="https://www.courts.go.jp/saiban/syurui/syurui_minzi/minzi_02_02_01/index.html" target="_blank" rel="noopener">https://www.courts.go.jp/</a></li>
+        <li>e-Gov 法令検索「民事執行法（差押禁止債権）」→ <a href="https://laws.e-gov.go.jp/law/354AC0000000004" target="_blank" rel="noopener">https://laws.e-gov.go.jp/</a></li>
+        <li>法テラス→ <a href="https://www.houterasu.or.jp/" target="_blank" rel="noopener">https://www.houterasu.or.jp/</a></li>
+      </ul>
+    </div>
+    <div class="disclaimer">
+      ※ 本記事は一般的な情報提供を目的としており、個別の法的アドバイスではありません。具体的な手続きについては、弁護士・司法書士等の専門家にご相談ください。
+    </div>
+
+  </div>
+
+  <div class="related">
+    <div class="related-title">関連記事</div>
+    <div class="related-grid">
+      <a href="debt-settlement.html" class="related-card">
+        <div class="related-card-tag">債務整理</div>
+        <div class="related-card-title">任意整理・個人再生・自己破産の違いをわかりやすく解説</div>
+      </a>
+      <a href="card-loan.html" class="related-card">
+        <div class="related-card-tag">借金・債務</div>
+        <div class="related-card-title">カードローンの仕組みと罠｜気づいたら抜け出せない理由</div>
+      </a>
+      <a href="tax-delinquency.html" class="related-card">
+        <div class="related-card-tag">税金・公的負担</div>
+        <div class="related-card-title">税金を滞納してしまったら｜差し押さえ前にできる対処法</div>
+      </a>
+      <a href="debt-alone.html" class="related-card">
+        <div class="related-card-tag">借金・債務</div>
+        <div class="related-card-title">借金100万円を一人で抱え込んだ末路と解決の第一歩</div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>© 2026 よりそいマネー — お金の悩みを匿名で相談できるサイト<br><a href="../privacy.html" style="color:#A0AEC0;font-size:12px;">プライバシーポリシー</a></p>
+</footer>
+
+</body>
+</html>

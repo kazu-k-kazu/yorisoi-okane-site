@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>お金の悩み記事一覧 | MoneySpace</title>
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    :root {
+      --accent: #7C8CF8;
+      --bg: #F0F4FF;
+      --white: #FFFFFF;
+      --text: #2D3748;
+      --text-light: #718096;
+      --border: #E2E8F0;
+    }
+    body { font-family:'Hiragino Sans','Yu Gothic',sans-serif; background:var(--bg); color:var(--text); line-height:1.7; }
+    nav { background:var(--white); border-bottom:1px solid var(--border); padding:0 40px; height:64px; display:flex; align-items:center; justify-content:space-between; position:sticky; top:0; z-index:100; box-shadow:0 1px 4px rgba(0,0,0,0.06); }
+    .logo { font-size:20px; font-weight:700; color:var(--text); text-decoration:none; }
+    .logo span { color:#38B2AC; }
+    nav a.nav-link { color:var(--text-light); text-decoration:none; font-size:14px; }
+
+    .container { max-width:1100px; margin:0 auto; padding:48px 40px; }
+    .page-header { margin-bottom:40px; }
+    .page-title { font-size:28px; font-weight:700; color:var(--text); margin-bottom:8px; }
+    .page-sub { color:var(--text-light); font-size:15px; }
+
+    /* フィルター */
+    .filters { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:32px; }
+    .filter-btn {
+      padding:8px 20px; border-radius:20px; border:1px solid var(--border);
+      background:var(--white); color:var(--text-light); font-size:13px; cursor:pointer;
+      transition:all 0.2s; font-family:inherit;
+    }
+    .filter-btn:hover, .filter-btn.active {
+      background:#38B2AC; color:var(--white); border-color:#38B2AC;
+    }
+
+    /* 記事グリッド */
+    .article-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+
+    .article-card {
+      background:var(--white); border:1px solid var(--border); border-radius:12px;
+      padding:24px; text-decoration:none; color:inherit; display:block;
+      transition:transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    }
+    .article-card:hover { transform:translateY(-4px); box-shadow:0 12px 32px rgba(45,55,72,0.1); border-color:#38B2AC; }
+
+    .cat-tag { display:inline-block; font-size:11px; font-weight:600; padding:3px 10px; border-radius:20px; margin-bottom:12px; }
+    .cat-debt       { background:#FC81811a; color:#E53E3E; }
+    .cat-gambling   { background:#ED8C3A1a; color:#C05621; }
+    .cat-family     { background:#9F7AEA1a; color:#6B46C1; }
+    .cat-retirement { background:#38B2AC1a; color:#2C7A7B; }
+    .cat-fraud      { background:#F6E05E1a; color:#B7791F; }
+    .cat-savings    { background:#48BB781a; color:#276749; }
+    .cat-loan       { background:#38B2AC1a; color:#2C7A7B; }
+    .cat-tax        { background:#F687B31a; color:#97266D; }
+
+    .article-title { font-size:15px; font-weight:700; color:var(--text); margin-bottom:8px; line-height:1.5; }
+    .article-keyword { font-size:12px; color:var(--text-light); }
+    .article-date { font-size:11px; color:#A0AEC0; margin-top:12px; }
+
+    /* 空状態 */
+    .empty-state { text-align:center; padding:80px 20px; }
+    .empty-state h3 { font-size:20px; color:var(--text-light); margin-bottom:8px; }
+    .empty-state p { font-size:14px; color:#A0AEC0; }
+    .empty-icon { font-size:48px; margin-bottom:16px; }
+
+    footer { text-align:center; padding:48px; color:#A0AEC0; font-size:13px; margin-top:48px; background:var(--white); border-top:1px solid var(--border); }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">Money<span>Space</span></a>
+  <a href="index.html" class="nav-link">← トップ</a>
+</nav>
+
+<div class="container">
+  <div class="page-header">
+    <h1 class="page-title">お金の悩み記事一覧</h1>
+    <p class="page-sub">借金・ギャンブル・老後・詐欺など、お金の悩みに関する記事をカテゴリ別に読めます</p>
+  </div>
+
+  <div class="filters">
+    <button class="filter-btn active" onclick="filterArticles('all', this)">すべて</button>
+    <button class="filter-btn" onclick="filterArticles('debt', this)">借金・債務</button>
+    <button class="filter-btn" onclick="filterArticles('gambling', this)">ギャンブル依存</button>
+    <button class="filter-btn" onclick="filterArticles('family', this)">家族に内緒</button>
+    <button class="filter-btn" onclick="filterArticles('retirement', this)">老後のお金</button>
+    <button class="filter-btn" onclick="filterArticles('fraud', this)">投資詐欺</button>
+    <button class="filter-btn" onclick="filterArticles('savings', this)">貯金ゼロ</button>
+    <button class="filter-btn" onclick="filterArticles('loan', this)">奨学金</button>
+    <button class="filter-btn" onclick="filterArticles('tax', this)">税金・差し押さえ</button>
+    <button class="filter-btn" onclick="filterArticles('inheritance', this)">相続・遺産</button>
+    <button class="filter-btn" onclick="filterArticles('illegal', this)">ヤミ金・詐欺</button>
+    <button class="filter-btn" onclick="filterArticles('housing', this)">住宅・離婚</button>
+    <button class="filter-btn" onclick="filterArticles('welfare', this)">生活保護・医療</button>
+  </div>
+
+  <div class="article-grid" id="articleGrid">
+    <div class="empty-state" id="emptyState" style="grid-column:1/-1; display:none;">
+      <div class="empty-icon">📝</div>
+      <h3>記事を生成中です</h3>
+      <p>記事を準備中です。しばらくお待ちください。</p>
+    </div>
+  </div>
+</div>
+
+<footer>© 2026 MoneySpace. All rights reserved. ｜ <a href="privacy.html" style="color:#A0AEC0;">プライバシーポリシー</a></footer>
+
+<script>
+  let allArticles = [];
+  let currentFilter = 'all';
+
+  const catLabels = {
+    debt:       { label: '借金・債務',     cls: 'cat-debt' },
+    gambling:   { label: 'ギャンブル依存', cls: 'cat-gambling' },
+    family:     { label: '家族に内緒',     cls: 'cat-family' },
+    retirement: { label: '老後のお金',     cls: 'cat-retirement' },
+    fraud:      { label: '投資詐欺',       cls: 'cat-fraud' },
+    savings:    { label: '貯金ゼロ',       cls: 'cat-savings' },
+    loan:       { label: '奨学金・ローン', cls: 'cat-loan' },
+    tax:        { label: '税金・差し押さえ', cls: 'cat-tax' },
+    inheritance:{ label: '相続・遺産',      cls: 'cat-loan' },
+    illegal:    { label: 'ヤミ金・詐欺',    cls: 'cat-fraud' },
+    housing:    { label: '住宅・離婚',      cls: 'cat-family' },
+    welfare:    { label: '生活保護・医療',  cls: 'cat-retirement' },
+  };
+
+  function formatDate(isoStr) {
+    const d = new Date(isoStr);
+    return `${d.getFullYear()}年${d.getMonth()+1}月${d.getDate()}日`;
+  }
+
+  function renderArticles(articles) {
+    const grid = document.getElementById('articleGrid');
+    const empty = document.getElementById('emptyState');
+
+    if (articles.length === 0) {
+      grid.innerHTML = '';
+      grid.appendChild(empty);
+      empty.style.display = 'block';
+      return;
+    }
+
+    empty.style.display = 'none';
+    grid.innerHTML = articles.map(a => {
+      const cat = catLabels[a.category] || { label: a.cat_label, cls: 'cat-couple' };
+      return `
+        <a href="${a.file}" class="article-card" data-cat="${a.category}">
+          <span class="cat-tag ${cat.cls}">${cat.label}</span>
+          <div class="article-title">${a.title}</div>
+          <div class="article-keyword">🔍 ${a.keyword}</div>
+          <div class="article-date">${formatDate(a.created_at)}</div>
+        </a>`;
+    }).join('');
+  }
+
+  function filterArticles(cat, btn) {
+    currentFilter = cat;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const filtered = cat === 'all' ? allArticles : allArticles.filter(a => a.category === cat);
+    renderArticles(filtered);
+  }
+
+  const articlesData = [
+    {
+      id: 1,
+      file: "articles/debt-alone.html",
+      title: "借金100万円を一人で抱え込んだ末路と解決の第一歩",
+      category: "debt",
+      cat_label: "借金・債務",
+      keyword: "借金 解決 相談",
+      created_at: "2026-04-29"
+    },
+    {
+      id: 2,
+      file: "articles/gambling-debt.html",
+      title: "ギャンブルで借金が膨らんでいる…今すぐできる3つの対処法",
+      category: "gambling",
+      cat_label: "ギャンブル依存",
+      keyword: "ギャンブル 借金 依存症",
+      created_at: "2026-04-29"
+    },
+    {
+      id: 3,
+      file: "articles/secret-debt.html",
+      title: "家族に内緒の借金、バレる前にできること",
+      category: "family",
+      cat_label: "家族に内緒",
+      keyword: "借金 隠す 家族",
+      created_at: "2026-04-29"
+    },
+    {
+      id: 4,
+      file: "articles/retirement-money.html",
+      title: "老後2000万円問題の本当の対策",
+      category: "retirement",
+      cat_label: "老後のお金",
+      keyword: "老後 2000万円 NISA iDeCo",
+      created_at: "2026-04-29"
+    },
+    {
+      id: 5,
+      file: "articles/investment-scam.html",
+      title: "投資詐欺にあったと気づいたら最初にすること",
+      category: "fraud",
+      cat_label: "投資詐欺",
+      keyword: "投資詐欺 SNS 被害 返金",
+      created_at: "2026-04-29"
+    },
+    {
+      id: 6,
+      file: "articles/zero-savings.html",
+      title: "貯金ゼロから始める最速の貯め方【月3万円から】",
+      category: "savings",
+      cat_label: "貯金ゼロ",
+      keyword: "貯金 先取り 固定費 節約",
+      created_at: "2026-04-29"
+    },
+    {
+      id: 7,
+      file: "articles/revolving-credit.html",
+      title: "リボ払いが危険な理由と今すぐ抜け出す方法",
+      category: "debt",
+      cat_label: "借金・債務",
+      keyword: "リボ払い 利息 クレジットカード",
+      created_at: "2026-04-29"
+    },
+    {
+      id: 8,
+      file: "articles/debt-settlement.html",
+      title: "任意整理・個人再生・自己破産の違いをわかりやすく解説",
+      category: "debt",
+      cat_label: "借金・債務",
+      keyword: "任意整理 個人再生 自己破産 債務整理",
+      created_at: "2026-04-29"
+    },
+    {
+      id: 9,
+      file: "articles/overpayment.html",
+      title: "過払い金請求って実際どうなの？手続きの流れと注意点",
+      category: "debt",
+      cat_label: "借金・債務",
+      keyword: "過払い金 返金 消費者金融",
+      created_at: "2026-04-29"
+    },
+    {
+      id: 10,
+      file: "articles/side-hustle-debt.html",
+      title: "借金返済のための副業、何から始めればいいか",
+      category: "debt",
+      cat_label: "借金・債務",
+      keyword: "副業 返済 メルカリ ライティング",
+      created_at: "2026-04-29"
+    },
+    {
+      id: 11,
+      file: "articles/student-loan.html",
+      title: "奨学金の返済が苦しいとき｜猶予・減額・免除の全選択肢",
+      category: "loan",
+      cat_label: "奨学金・ローン",
+      keyword: "奨学金 返済猶予 減額 JASSO",
+      created_at: "2026-04-29"
+    },
+    {
+      id: 12,
+      file: "articles/tax-delinquency.html",
+      title: "税金を滞納してしまったら｜差し押さえ前にできる対処法",
+      category: "tax",
+      cat_label: "税金・差し押さえ",
+      keyword: "税金 滞納 住民税 差し押さえ 分割",
+      created_at: "2026-04-29"
+    },
+    {
+      id: 13,
+      file: "articles/guarantor-risk.html",
+      title: "連帯保証人になってしまったら｜請求が来る前にできること",
+      category: "debt",
+      cat_label: "借金・債務",
+      keyword: "連帯保証人 請求 責任 断り方",
+      created_at: "2026-04-29"
+    },
+    {
+      id: 14,
+      file: "articles/wage-garnishment.html",
+      title: "給与が差し押さえられたら｜差し押さえの仕組みと止める方法",
+      category: "tax",
+      cat_label: "税金・差し押さえ",
+      keyword: "給与差し押さえ 強制執行 止める方法",
+      created_at: "2026-04-29"
+    },
+    {
+      id: 15,
+      file: "articles/inheritance-debt.html",
+      title: "親の借金を相続してしまったら｜相続放棄の手続きと3ヶ月の期限",
+      category: "inheritance",
+      cat_label: "相続・遺産",
+      keyword: "相続放棄 親の借金 家庭裁判所 3ヶ月",
+      created_at: "2026-04-29"
+    },
+    {
+      id: 16,
+      file: "articles/illegal-lending.html",
+      title: "ヤミ金に手を出してしまったら｜今すぐできる対処法と逃げ方",
+      category: "illegal",
+      cat_label: "ヤミ金・詐欺",
+      keyword: "ヤミ金 違法業者 取り立て 返済しなくていい",
+      created_at: "2026-04-29"
+    },
+    {
+      id: 17,
+      file: "articles/mortgage-crisis.html",
+      title: "住宅ローンが払えなくなったとき｜競売を避けるための全選択肢",
+      category: "housing",
+      cat_label: "住宅・離婚",
+      keyword: "住宅ローン 競売 任意売却 リスケジュール",
+      created_at: "2026-04-29"
+    },
+    {
+      id: 18,
+      file: "articles/divorce-money.html",
+      title: "離婚するときのお金の問題｜財産分与・養育費・慰謝料の基本",
+      category: "housing",
+      cat_label: "住宅・離婚",
+      keyword: "離婚 財産分与 養育費 慰謝料 年金分割",
+      created_at: "2026-04-29"
+    },
+    {
+      id: 19,
+      file: "articles/welfare-application.html",
+      title: "生活保護の申請方法｜受けられる条件と手続きの全手順",
+      category: "welfare",
+      cat_label: "生活保護・医療",
+      keyword: "生活保護 申請 条件 福祉事務所",
+      created_at: "2026-04-29"
+    },
+    {
+      id: 20,
+      file: "articles/medical-bills.html",
+      title: "医療費が払えないとき｜減額・猶予・無料で使える制度まとめ",
+      category: "welfare",
+      cat_label: "生活保護・医療",
+      keyword: "医療費 高額療養費 限度額認定証 無料低額診療",
+      created_at: "2026-04-29"
+    },
+    {
+      id: 21,
+      file: "articles/cant-pay-rent.html",
+      title: "家賃が払えないとき｜退去・追い出しを防ぐための対処法",
+      category: "housing",
+      cat_label: "住宅・離婚",
+      keyword: "家賃 滞納 強制退去 住居確保給付金",
+      created_at: "2026-04-29"
+    },
+    {
+      id: 22,
+      file: "articles/credit-card-stopped.html",
+      title: "クレジットカードが止まった・強制解約されたときの対処法",
+      category: "debt",
+      cat_label: "借金・債務",
+      keyword: "クレジットカード 強制解約 信用情報 ブラックリスト",
+      created_at: "2026-04-29"
+    }
+  ];
+
+  allArticles = articlesData;
+  renderArticles(articlesData);
+</script>
+
+</body>
+</html>

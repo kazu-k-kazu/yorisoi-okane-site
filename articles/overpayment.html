@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>過払い金請求って実際どうなの？手続きの流れと注意点 | よりそいマネー</title>
+  <meta name="description" content="過払い金請求の仕組みと手続きの流れをわかりやすく解説。対象になる人の条件、いくら戻るか、注意点まで詳しく紹介します。">
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'Hiragino Sans','Yu Gothic',sans-serif; background:#F0FDF8; color:#2D3748; line-height:1.8; }
+    nav { background:#fff; border-bottom:1px solid #E2E8F0; padding:0 40px; height:64px; display:flex; align-items:center; justify-content:space-between; position:sticky; top:0; z-index:100; }
+    .logo { font-size:20px; font-weight:700; color:#2D3748; text-decoration:none; }
+    .logo span { color:#38B2AC; }
+    .back-link { color:#38B2AC; text-decoration:none; font-size:14px; }
+    .back-link:hover { text-decoration:underline; }
+    .container { max-width:780px; margin:48px auto; padding:0 24px; }
+    .article-header { margin-bottom:32px; }
+    .cat-tag { display:inline-block; background:rgba(56,178,172,0.1); color:#38B2AC; font-size:12px; font-weight:600; padding:4px 12px; border-radius:20px; margin-bottom:12px; }
+    h1 { font-size:28px; font-weight:700; color:#1A202C; line-height:1.4; margin-bottom:16px; }
+    .article-meta { display:flex; gap:20px; font-size:13px; color:#718096; flex-wrap:wrap; }
+    .toc { background:#fff; border:1px solid #E2E8F0; border-radius:12px; padding:24px 28px; margin-bottom:32px; }
+    .toc-title { font-size:14px; font-weight:700; color:#2D3748; margin-bottom:12px; }
+    .toc ol { padding-left:20px; }
+    .toc li { margin-bottom:8px; }
+    .toc a { color:#38B2AC; text-decoration:none; font-size:14px; }
+    .toc a:hover { text-decoration:underline; }
+    .article-body { background:#fff; border-radius:16px; padding:40px; box-shadow:0 2px 12px rgba(45,55,72,0.06); margin-bottom:24px; }
+    .article-body h2 { font-size:22px; font-weight:700; color:#2D3748; margin:40px 0 16px; padding:12px 16px; border-left:4px solid #38B2AC; background:rgba(56,178,172,0.04); border-radius:0 8px 8px 0; }
+    .article-body h2:first-child { margin-top:0; }
+    .article-body h3 { font-size:17px; font-weight:700; color:#4A5568; margin:28px 0 12px; padding-left:12px; border-left:2px solid #CBD5E0; }
+    .article-body p { margin-bottom:18px; font-size:15px; line-height:1.9; }
+    .article-body ul, .article-body ol { margin:12px 0 20px 24px; }
+    .article-body li { margin-bottom:10px; font-size:15px; line-height:1.7; }
+    .article-body strong { color:#2D3748; font-weight:700; }
+    .point-box { background:rgba(56,178,172,0.06); border:1px solid rgba(56,178,172,0.2); border-radius:10px; padding:20px 24px; margin:24px 0; }
+    .point-box-title { font-size:13px; font-weight:700; color:#38B2AC; margin-bottom:10px; }
+    .point-box ul { margin:0; padding-left:20px; }
+    .point-box li { font-size:14px; margin-bottom:6px; }
+    .warn-box { background:#FFFBEB; border:1px solid #F6E05E; border-radius:10px; padding:16px 20px; margin:24px 0; font-size:13px; color:#744210; line-height:1.7; }
+    .summary-box { background:linear-gradient(135deg,#E6FFFA,#EBF8FF); border-radius:12px; padding:28px; margin:32px 0; }
+    .summary-box h3 { font-size:18px; font-weight:700; margin-bottom:16px; color:#2D3748; }
+    .summary-box ol { padding-left:20px; }
+    .summary-box li { margin-bottom:10px; font-size:14px; font-weight:600; color:#4A5568; }
+    .cta-box { background:linear-gradient(135deg,#2C7A7B,#285E61); border-radius:12px; padding:28px; text-align:center; margin-top:32px; }
+    .cta-box p { color:rgba(255,255,255,0.85); font-size:14px; margin-bottom:16px; }
+    .cta-btn { display:inline-block; background:#fff; color:#2C7A7B; padding:12px 32px; border-radius:8px; font-weight:700; font-size:15px; text-decoration:none; }
+    .disclaimer { background:#F7FAFC; border:1px solid #E2E8F0; border-radius:8px; padding:14px 18px; font-size:12px; color:#718096; line-height:1.7; margin-top:24px; }
+    .related { margin-top:32px; }
+    .related-title { font-size:16px; font-weight:700; margin-bottom:16px; color:#2D3748; }
+    .related-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    .related-card { background:#fff; border:1px solid #E2E8F0; border-radius:10px; padding:16px; text-decoration:none; color:inherit; transition:border-color 0.2s; }
+    .related-card:hover { border-color:#38B2AC; }
+    .related-card-tag { font-size:11px; color:#38B2AC; font-weight:600; margin-bottom:6px; }
+    .related-card-title { font-size:13px; font-weight:600; color:#2D3748; line-height:1.5; }
+    footer { text-align:center; padding:48px; color:#A0AEC0; font-size:13px; margin-top:48px; }
+    @media (max-width:768px) {
+      nav { padding:0 16px; }
+      .container { margin:24px auto; }
+      h1 { font-size:22px; }
+      .article-body { padding:24px 20px; }
+      .related-grid { grid-template-columns:1fr; }
+    }
+  
+    .source-box { background:#F7FAFC; border:1px solid #E2E8F0; border-radius:8px; padding:16px 20px; margin:24px 0 0; }
+    .source-box-title { font-size:12px; font-weight:700; color:#4A5568; margin-bottom:10px; }
+    .source-box ul { padding-left:16px; margin:0; }
+    .source-box li { font-size:11px; color:#718096; margin-bottom:6px; line-height:1.7; }
+    .source-box a { color:#38B2AC; text-decoration:none; }
+    .source-box a:hover { text-decoration:underline; }
+  </style>
+</head>
+<body>
+<nav>
+  <a href="../index.html" class="logo">よりそい<span>マネー</span></a>
+  <a href="../article-list.html" class="back-link">← 記事一覧に戻る</a>
+</nav>
+<div class="container">
+  <div class="article-header">
+    <span class="cat-tag">借金・債務</span>
+    <h1>過払い金請求って実際どうなの？手続きの流れと注意点</h1>
+    <div class="article-meta">
+      <span>2026年4月29日</span>
+      <span>読了時間：約7分</span>
+      <span>閲覧数：5,267</span>
+    </div>
+  </div>
+  <div class="toc">
+    <div class="toc-title">目次</div>
+    <ol>
+      <li><a href="#what">過払い金とは何か</a></li>
+      <li><a href="#target">請求できる人の条件</a></li>
+      <li><a href="#amount">いくら戻ってくるのか</a></li>
+      <li><a href="#flow">手続きの流れ</a></li>
+      <li><a href="#caution">注意点</a></li>
+      <li><a href="#summary">まとめ</a></li>
+    </ol>
+  </div>
+  <div class="article-body">
+    <h2 id="what">過払い金とは何か</h2>
+    <p>過払い金とは、<strong>払いすぎた利息を取り戻せるお金</strong>のことです。2010年以前の消費者金融やクレジットカードのキャッシングは、法律の上限（年20%）を超えた高金利（年25〜29%）で貸し付けていた時代がありました。その超過分を返還請求できるのが過払い金請求です。</p>
+    <p>「払い過ぎた利息が戻ってくる」という制度で、条件に当てはまれば数十万円〜数百万円が手元に戻るケースもあります。</p>
+
+    <h2 id="target">請求できる人の条件</h2>
+    <div class="point-box">
+      <div class="point-box-title">過払い金請求の対象になる可能性がある人</div>
+      <ul>
+        <li>2010年以前から消費者金融（アコム・プロミス・アイフルなど）を利用していた</li>
+        <li>クレジットカードのキャッシング枠を使っていた</li>
+        <li>完済後10年以内（時効前）</li>
+        <li>取引期間が長いほど、過払い金が多くなる傾向がある</li>
+      </ul>
+    </div>
+    <div class="warn-box">
+      ⚠️ 2010年以降に借り始めた方は、過払い金が発生していない可能性が高いです。また消費者金融ではなく銀行カードローンのみを利用していた方も対象外になります。
+    </div>
+
+    <h2 id="amount">いくら戻ってくるのか</h2>
+    <p>過払い金の額は「借入期間」「借入額」「返済額」によって計算します。弁護士・司法書士が取引履歴を取り寄せて計算するため、相談してみないと正確な金額はわかりません。</p>
+    <p>目安として、5年以上の長期取引で完済している場合は<strong>数十万〜100万円以上</strong>が戻るケースもあります。まず無料相談で計算してもらうことが先決です。</p>
+
+    <h2 id="flow">手続きの流れ</h2>
+    <ol>
+      <li><strong>弁護士・司法書士に無料相談</strong>：対象かどうかの確認と概算額の算出</li>
+      <li><strong>依頼・委任契約</strong>：着手金は無料・成功報酬制の事務所が多い</li>
+      <li><strong>取引履歴の開示請求</strong>：弁護士が消費者金融に過去の取引記録を請求</li>
+      <li><strong>引き直し計算</strong>：法定金利で再計算して過払い金の金額を確定</li>
+      <li><strong>返還交渉・裁判</strong>：消費者金融と交渉。応じない場合は裁判（和解で解決するケースが多い）</li>
+      <li><strong>返還金の受取</strong>：成功報酬を差し引いた金額が手元に</li>
+    </ol>
+    <p>手続き期間は数ヶ月〜1年程度が目安です。</p>
+
+    <h2 id="caution">注意点</h2>
+    <h3>現在も借金が残っている場合</h3>
+    <p>過払い金請求をすると、その消費者金融との取引が「完済」として処理され、信用情報に登録されます。借金が残っている場合は、過払い金で相殺して残債をゼロにすることも可能です。</p>
+    <h3>時効に注意</h3>
+    <p>最後の取引から<strong>10年で時効</strong>になります。「昔借りていたかも」と心当たりがある方は早めに相談してください。</p>
+    <h3>悪質業者に注意</h3>
+    <p>「過払い金があります！」と電話勧誘してくる業者は要注意です。正規の弁護士・司法書士事務所は電話で勧誘しません。自分から相談しに行くのが基本です。</p>
+
+    <div class="summary-box">
+      <h3>まとめ</h3>
+      <ol>
+        <li>2010年以前から消費者金融を使っていた方は過払い金がある可能性あり</li>
+        <li>金額は取引履歴を取り寄せて計算しないとわからない</li>
+        <li>弁護士・司法書士への相談は無料・成功報酬制が多い</li>
+        <li>完済後10年で時効。心当たりがある方は早めに確認を</li>
+      </ol>
+    </div>
+    <div class="cta-box">
+      <p>過払い金があるか確認したい方、匿名で相談できます。</p>
+      <a href="../chat.html?category=debt" class="cta-btn">AIに匿名で相談する（無料）</a>
+    </div>
+    
+    <div class="source-box">
+      <div class="source-box-title">📌 参考・出典</div>
+      <ul>
+        <li>金融庁「貸金業法について（上限金利の見直し経緯）」→ <a href="https://www.fsa.go.jp/ordinary/chuui/yuukai.html" target="_blank" rel="noopener">https://www.fsa.go.jp/</a></li>
+        <li>e-Gov 法令検索「利息制限法」→ <a href="https://laws.e-gov.go.jp/law/329AC0000000100" target="_blank" rel="noopener">https://laws.e-gov.go.jp/</a></li>
+        <li>法テラス（過払い金請求の相談窓口）→ <a href="https://www.houterasu.or.jp/" target="_blank" rel="noopener">https://www.houterasu.or.jp/</a></li>
+      </ul>
+    </div>
+    <div class="disclaimer">
+      ※ 本記事は一般的な情報提供を目的としており、個別の法律アドバイスではありません。具体的な手続きについては弁護士・司法書士にご相談ください。
+    </div>
+  </div>
+  <div class="related">
+    <div class="related-title">関連記事</div>
+    <div class="related-grid">
+      <a href="debt-settlement.html" class="related-card">
+        <div class="related-card-tag">借金・債務</div>
+        <div class="related-card-title">任意整理・個人再生・自己破産の違いをわかりやすく解説</div>
+      </a>
+      <a href="debt-alone.html" class="related-card">
+        <div class="related-card-tag">借金・債務</div>
+        <div class="related-card-title">借金100万円を一人で抱え込んだ末路と解決の第一歩</div>
+      </a>
+    </div>
+  </div>
+</div>
+<footer><p>© 2026 よりそいマネー — お金の悩みを匿名で相談できるサイト<br><a href="../privacy.html" style="color:#A0AEC0;font-size:12px;">プライバシーポリシー</a></p></footer>
+</body>
+</html>

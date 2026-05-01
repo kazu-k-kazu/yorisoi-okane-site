@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>投資詐欺にあったと気づいたら最初にすること | よりそいマネー</title>
+  <meta name="description" content="投資詐欺の被害に気づいたときの初動対応を解説。被害届の出し方、お金を取り戻す方法、よくある詐欺の手口まで詳しく紹介します。">
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'Hiragino Sans','Yu Gothic',sans-serif; background:#F0FDF8; color:#2D3748; line-height:1.8; }
+    nav { background:#fff; border-bottom:1px solid #E2E8F0; padding:0 40px; height:64px; display:flex; align-items:center; justify-content:space-between; position:sticky; top:0; z-index:100; }
+    .logo { font-size:20px; font-weight:700; color:#2D3748; text-decoration:none; }
+    .logo span { color:#38B2AC; }
+    .back-link { color:#38B2AC; text-decoration:none; font-size:14px; }
+    .back-link:hover { text-decoration:underline; }
+    .container { max-width:780px; margin:48px auto; padding:0 24px; }
+    .article-header { margin-bottom:32px; }
+    .cat-tag { display:inline-block; background:rgba(56,178,172,0.1); color:#38B2AC; font-size:12px; font-weight:600; padding:4px 12px; border-radius:20px; margin-bottom:12px; }
+    h1 { font-size:28px; font-weight:700; color:#1A202C; line-height:1.4; margin-bottom:16px; }
+    .article-meta { display:flex; gap:20px; font-size:13px; color:#718096; flex-wrap:wrap; }
+    .toc { background:#fff; border:1px solid #E2E8F0; border-radius:12px; padding:24px 28px; margin-bottom:32px; }
+    .toc-title { font-size:14px; font-weight:700; color:#2D3748; margin-bottom:12px; }
+    .toc ol { padding-left:20px; }
+    .toc li { margin-bottom:8px; }
+    .toc a { color:#38B2AC; text-decoration:none; font-size:14px; }
+    .toc a:hover { text-decoration:underline; }
+    .article-body { background:#fff; border-radius:16px; padding:40px; box-shadow:0 2px 12px rgba(45,55,72,0.06); margin-bottom:24px; }
+    .article-body h2 { font-size:22px; font-weight:700; color:#2D3748; margin:40px 0 16px; padding:12px 16px; border-left:4px solid #38B2AC; background:rgba(56,178,172,0.04); border-radius:0 8px 8px 0; }
+    .article-body h2:first-child { margin-top:0; }
+    .article-body h3 { font-size:17px; font-weight:700; color:#4A5568; margin:28px 0 12px; padding-left:12px; border-left:2px solid #CBD5E0; }
+    .article-body p { margin-bottom:18px; font-size:15px; line-height:1.9; }
+    .article-body ul, .article-body ol { margin:12px 0 20px 24px; }
+    .article-body li { margin-bottom:10px; font-size:15px; line-height:1.7; }
+    .article-body strong { color:#2D3748; font-weight:700; }
+    .point-box { background:rgba(56,178,172,0.06); border:1px solid rgba(56,178,172,0.2); border-radius:10px; padding:20px 24px; margin:24px 0; }
+    .point-box-title { font-size:13px; font-weight:700; color:#38B2AC; margin-bottom:10px; }
+    .point-box ul { margin:0; padding-left:20px; }
+    .point-box li { font-size:14px; margin-bottom:6px; }
+    .warn-box { background:#FFFBEB; border:1px solid #F6E05E; border-radius:10px; padding:16px 20px; margin:24px 0; font-size:13px; color:#744210; line-height:1.7; }
+    .summary-box { background:linear-gradient(135deg,#E6FFFA,#EBF8FF); border-radius:12px; padding:28px; margin:32px 0; }
+    .summary-box h3 { font-size:18px; font-weight:700; margin-bottom:16px; color:#2D3748; }
+    .summary-box ol { padding-left:20px; }
+    .summary-box li { margin-bottom:10px; font-size:14px; font-weight:600; color:#4A5568; }
+    .cta-box { background:linear-gradient(135deg,#2C7A7B,#285E61); border-radius:12px; padding:28px; text-align:center; margin-top:32px; }
+    .cta-box p { color:rgba(255,255,255,0.85); font-size:14px; margin-bottom:16px; }
+    .cta-btn { display:inline-block; background:#fff; color:#2C7A7B; padding:12px 32px; border-radius:8px; font-weight:700; font-size:15px; text-decoration:none; }
+    .disclaimer { background:#F7FAFC; border:1px solid #E2E8F0; border-radius:8px; padding:14px 18px; font-size:12px; color:#718096; line-height:1.7; margin-top:24px; }
+    .related { margin-top:32px; }
+    .related-title { font-size:16px; font-weight:700; margin-bottom:16px; color:#2D3748; }
+    .related-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    .related-card { background:#fff; border:1px solid #E2E8F0; border-radius:10px; padding:16px; text-decoration:none; color:inherit; transition:border-color 0.2s; }
+    .related-card:hover { border-color:#38B2AC; }
+    .related-card-tag { font-size:11px; color:#38B2AC; font-weight:600; margin-bottom:6px; }
+    .related-card-title { font-size:13px; font-weight:600; color:#2D3748; line-height:1.5; }
+    footer { text-align:center; padding:48px; color:#A0AEC0; font-size:13px; margin-top:48px; }
+    @media (max-width:768px) {
+      nav { padding:0 16px; }
+      .container { margin:24px auto; }
+      h1 { font-size:22px; }
+      .article-body { padding:24px 20px; }
+      .related-grid { grid-template-columns:1fr; }
+    }
+  
+    .source-box { background:#F7FAFC; border:1px solid #E2E8F0; border-radius:8px; padding:16px 20px; margin:24px 0 0; }
+    .source-box-title { font-size:12px; font-weight:700; color:#4A5568; margin-bottom:10px; }
+    .source-box ul { padding-left:16px; margin:0; }
+    .source-box li { font-size:11px; color:#718096; margin-bottom:6px; line-height:1.7; }
+    .source-box a { color:#38B2AC; text-decoration:none; }
+    .source-box a:hover { text-decoration:underline; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html" class="logo">よりそい<span>マネー</span></a>
+  <a href="../article-list.html" class="back-link">← 記事一覧に戻る</a>
+</nav>
+
+<div class="container">
+  <div class="article-header">
+    <span class="cat-tag">投資詐欺</span>
+    <h1>投資詐欺にあったと気づいたら最初にすること</h1>
+    <div class="article-meta">
+      <span>2026年4月29日</span>
+      <span>読了時間：約8分</span>
+      <span>閲覧数：6,430</span>
+    </div>
+  </div>
+
+  <div class="toc">
+    <div class="toc-title">目次</div>
+    <ol>
+      <li><a href="#patterns">よくある投資詐欺の手口</a></li>
+      <li><a href="#first-action">気づいたらすぐやること</a></li>
+      <li><a href="#get-back">お金を取り戻す方法はあるか</a></li>
+      <li><a href="#consult">相談できる窓口</a></li>
+      <li><a href="#summary">まとめ</a></li>
+    </ol>
+  </div>
+
+  <div class="article-body">
+
+    <h2 id="patterns">よくある投資詐欺の手口</h2>
+    <p>「自分は騙されない」と思っている人ほど被害にあいやすいのが投資詐欺の怖さです。近年急増している主な手口を知っておきましょう。</p>
+
+    <h3>SNS型投資詐欺（最多・急増中）</h3>
+    <p>InstagramやXで「月50万円稼いでいる」などの投稿を見て連絡をとると、LINEに誘導されます。最初は少額で利益が出るように見せかけ、徐々に入金額を増やさせます。「出金しようとするとできない」「追加入金しないと引き出せない」というのが典型的な流れです。</p>
+
+    <h3>著名人なりすまし詐欺</h3>
+    <p>有名経営者・投資家のSNSや動画広告を使ったなりすましで、「特別な投資グループ」への参加を誘います。本物と見分けがつかないほど精巧に作られているケースも多いです。</p>
+
+    <h3>FX・仮想通貨の「必勝ツール」</h3>
+    <p>「AIで自動売買で月利20%」「秘密のシグナルツール」などと称して、ツール代・入会費・証拠金を要求します。初回は利益が出るように見せ、大きな金額を入金させた後に連絡が取れなくなります。</p>
+
+    <div class="warn-box">
+      ⚠️ 「必ず儲かる」「元本保証」は詐欺のサインです。金融商品に元本保証はありません。また出金を求めた時に「税金」「手数料」などを理由に追加入金を要求されたら、即座に取引を止めてください。
+    </div>
+
+    <h2 id="first-action">気づいたらすぐやること</h2>
+    <p>「もしかして詐欺かも」と思った瞬間から、行動の速さが被害額を左右します。</p>
+
+    <h3>① 送金・追加入金を即座にやめる</h3>
+    <p>「入金すれば出金できる」「今だけのチャンス」という言葉に絶対に乗らないでください。送金するたびに回収可能性が下がります。</p>
+
+    <h3>② やり取りの証拠を保全する</h3>
+    <p>LINEのトーク履歴、振込明細、メール、サイトのスクリーンショットをすぐに保存してください。相手がアカウントを消す前に証拠を確保することが重要です。</p>
+
+    <div class="point-box">
+      <div class="point-box-title">保全すべき証拠一覧</div>
+      <ul>
+        <li>LINEトーク・DMのスクリーンショット（名前・アカウントIDも）</li>
+        <li>振込履歴・クレジットカード明細</li>
+        <li>相手のウェブサイト・LP（スクリーンショット＋URL）</li>
+        <li>契約書・利用規約（存在する場合）</li>
+        <li>通話録音（可能であれば）</li>
+      </ul>
+    </div>
+
+    <h3>③ 銀行・カード会社にすぐ連絡する</h3>
+    <p>銀行振込の場合、被害申告を早くするほど「振込停止・返金」の可能性が上がります。クレジットカードで支払った場合はチャージバック（取消し請求）ができる場合があります。</p>
+
+    <h2 id="get-back">お金を取り戻す方法はあるか</h2>
+    <p>「もう諦めるしかない」と思っている方もいますが、手段はあります。ただし時間との勝負です。</p>
+
+    <h3>振り込め詐欺救済法（犯罪利用預金口座等に係る資金による被害回復給付金の支給等に関する法律）</h3>
+    <p>詐欺に使われた口座が凍結・解約されると、残存資金が被害者に分配される仕組みです。警察への届出と金融機関への申請が必要です。</p>
+
+    <h3>弁護士による損害賠償請求</h3>
+    <p>相手の身元が特定できれば民事訴訟で損害賠償を請求できます。弁護士費用はかかりますが、被害額が大きい場合は費用対効果が合うことがあります。</p>
+
+    <h3>消費者センターへの相談</h3>
+    <p>国民生活センターや消費生活センターに相談すると、業者への働きかけや手続きのアドバイスを受けられます。</p>
+
+    <h2 id="consult">相談できる窓口</h2>
+
+    <div class="point-box">
+      <div class="point-box-title">相談窓口一覧</div>
+      <ul>
+        <li><strong>警察相談専用電話 #9110</strong>：詐欺被害の相談（24時間）</li>
+        <li><strong>消費者ホットライン 188</strong>：消費生活全般の相談</li>
+        <li><strong>金融庁の相談窓口</strong>：無登録業者への投資被害</li>
+        <li><strong>弁護士ドットコム</strong>：投資詐欺専門の弁護士に相談</li>
+        <li><strong>法テラス 0120-078374</strong>：費用が心配な方向け</li>
+      </ul>
+    </div>
+
+    <div class="summary-box">
+      <h3>まとめ</h3>
+      <ol>
+        <li>「必ず儲かる」「元本保証」は詐欺確定。追加送金は絶対にしない</li>
+        <li>気づいたらLINE履歴・振込明細の証拠をすぐ保存</li>
+        <li>銀行・カード会社への連絡は1分でも早く</li>
+        <li>警察・消費者センターへの届出で振込停止・返金の可能性がある</li>
+        <li>弁護士相談は初回無料が多い。一人で抱え込まないこと</li>
+      </ol>
+    </div>
+
+    <div class="cta-box">
+      <p>投資詐欺の被害、一人で悩まないでください。匿名で相談できます。</p>
+      <a href="../chat.html?category=fraud" class="cta-btn">AIに匿名で相談する（無料）</a>
+    </div>
+
+    
+    <div class="source-box">
+      <div class="source-box-title">📌 参考・出典</div>
+      <ul>
+        <li>金融庁「投資詐欺・無登録業者にご注意ください」→ <a href="https://www.fsa.go.jp/ordinary/chuui/" target="_blank" rel="noopener">https://www.fsa.go.jp/</a></li>
+        <li>消費者庁「特定商取引法について」→ <a href="https://www.caa.go.jp/policies/policy/consumer_transaction/" target="_blank" rel="noopener">https://www.caa.go.jp/</a></li>
+        <li>警察庁「特殊詐欺被害への対策」→ <a href="https://www.npa.go.jp/bureau/criminal/souni/tokushusagi/" target="_blank" rel="noopener">https://www.npa.go.jp/</a></li>
+      </ul>
+    </div>
+    <div class="disclaimer">
+      ※ 本記事は一般的な情報提供を目的としており、個別の法律アドバイスではありません。被害回復については、弁護士等の専門家にご相談ください。
+    </div>
+
+  </div>
+
+  <div class="related">
+    <div class="related-title">関連記事</div>
+    <div class="related-grid">
+      <a href="retirement-money.html" class="related-card">
+        <div class="related-card-tag">老後のお金</div>
+        <div class="related-card-title">老後2000万円問題の本当の対策</div>
+      </a>
+      <a href="debt-alone.html" class="related-card">
+        <div class="related-card-tag">借金・債務</div>
+        <div class="related-card-title">借金100万円を一人で抱え込んだ末路と解決の第一歩</div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>© 2026 よりそいマネー — お金の悩みを匿名で相談できるサイト<br><a href="../privacy.html" style="color:#A0AEC0;font-size:12px;">プライバシーポリシー</a></p>
+</footer>
+
+</body>
+</html>
